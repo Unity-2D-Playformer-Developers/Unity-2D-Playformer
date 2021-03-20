@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackgroundBack
+    uniqueID: 452847515
+    locked: 0
+  - name: BackgroundFront
+    uniqueID: 3296389547
+    locked: 0
+  - name: Props
+    uniqueID: 670326261
+    locked: 0
+  - name: PlatformBack
+    uniqueID: 2337128577
+    locked: 0
+  - name: PlatformMiddle
+    uniqueID: 985410019
+    locked: 0
+  - name: PlatformFront
+    uniqueID: 3810213901
+    locked: 0
