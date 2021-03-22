@@ -59,3 +59,6 @@ TagManager:
   - name: PlatformFront
     uniqueID: 3810213901
     locked: 0
+  - name: PlayerCharacter
+    uniqueID: 4075508161
+    locked: 0
