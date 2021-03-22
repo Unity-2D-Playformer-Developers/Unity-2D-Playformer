@@ -11,15 +11,19 @@ public class PlayerMovement : MonoBehaviour
 
 
     private Rigidbody2D rb2d;
+    private float rb2dGravityScale;
+
     private float movementX;
     private float movementY;
     
     private bool canClimb=false;
 
+
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        rb2dGravityScale = rb2d.gravityScale;
     }
 
     void OnMove(InputValue movementValue)
@@ -33,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canClimb == true)
         {
+            rb2d.gravityScale = 0;
             Vector2 movementVector = movementValue.Get<Vector2>();
             movementY = movementVector.y;
             Debug.Log("movement y=" + movementVector.y);
@@ -67,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
         {
             canClimb = true;
             Debug.Log("canClimb = true");
-            rb2d.gravityScale = 0;
         }       
     }
 
@@ -75,9 +79,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.name == "ClimbingTrigger")
         {
+            rb2d.gravityScale = rb2dGravityScale;
             canClimb = false;
             Debug.Log("canClimb = false");
-            rb2d.gravityScale = 2;
         }
     }
 

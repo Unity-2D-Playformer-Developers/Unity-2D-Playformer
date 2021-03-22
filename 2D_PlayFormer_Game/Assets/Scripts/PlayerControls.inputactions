@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "AttackInteract",
+                    "type": "Button",
+                    "id": "2027c54d-ef60-4948-aead-4529087be902",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -107,6 +115,17 @@
                     "action": "Climb",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d502c21e-edf6-40f2-9b12-fc58ce7d6660",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
