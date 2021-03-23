@@ -65,7 +65,10 @@ TagManager:
   - name: PlatformBack
     uniqueID: 2337128577
     locked: 0
-  - name: PlatformMiddle
+  - name: Player
+    uniqueID: 3264585875
+    locked: 0
+  - name: decoration
     uniqueID: 985410019
     locked: 0
   - name: PlatformFront
