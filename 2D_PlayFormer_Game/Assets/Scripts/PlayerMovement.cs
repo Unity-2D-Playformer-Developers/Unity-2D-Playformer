@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
 
     private Rigidbody2D rb2d;
+    private Animator animator;
+    private Vector3 movementDirection;
+
     private float rb2dGravityScale;
 
     private float movementX;
@@ -19,18 +22,42 @@ public class PlayerMovement : MonoBehaviour
     private bool canClimb=false;
 
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         rb2dGravityScale = rb2d.gravityScale;
+        animator = GetComponentInChildren<Animator>();
     }
 
     void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
-        Debug.Log("movement x=" + movementVector.x);
+        FlipPlayer();
+        SetAnimationParameters();
+    }
+
+
+    void SetAnimationParameters()
+    {
+        animator.SetFloat("movementSpeedX", Mathf.Abs(movementX));
+    }
+
+    void FlipPlayer()
+    {     
+        if(movementX>0) // movement right
+        {
+            movementDirection = new Vector3(1f, 1f, 1f);
+        }
+        else if(movementX<0) // movement left
+        {
+            movementDirection = new Vector3(-1f, 1f, 1f);
+        }
+
+        transform.localScale = movementDirection;              
     }
 
     void OnClimb(InputValue movementValue) //do poprawy
@@ -48,11 +75,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnJump() //do poprawy
+    void OnJump()
     {
         Debug.Log("Jump");
-        Vector2 jump = new Vector2(0.0f, 1f * jumpHeight);
-        rb2d.AddForce(jump);
+        if (Mathf.Abs(rb2d.velocity.y) < 0.001f)
+        {
+            rb2d.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
+        }
     }
 
     void Update()
