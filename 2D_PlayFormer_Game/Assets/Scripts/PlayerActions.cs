@@ -38,13 +38,8 @@ public class PlayerActions : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<IInteractable>() != null) // check if object can be interacted with
-        {
-            Debug.Log("Can interact");
-            interactableObject = collision.GetComponent<IInteractable>();
-            canInteract = true;
-        }
-        else if (collision.GetComponent<IPickupable>() != null) // check if object can be picked up
+
+        if (collision.GetComponent<IPickupable>() != null) // check if object can be picked up
         {
             Debug.Log("pickup");
             IPickupable pickupableObject = collision.GetComponent<IPickupable>();
@@ -52,6 +47,17 @@ public class PlayerActions : MonoBehaviour
             PickupEffect();
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.GetComponent<IInteractable>() != null) // check if object can be interacted with
+        {
+            Debug.Log("Can interact");
+            interactableObject = collision.GetComponent<IInteractable>();
+            canInteract = true;
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         canInteract = false;

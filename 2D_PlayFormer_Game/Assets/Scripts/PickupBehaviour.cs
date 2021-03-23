@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class PickupBehaviour : MonoBehaviour, IPickupable
 {
+    public bool simulatePhysics;
+
     private Rigidbody2D rb2d;
 
     private void OnEnable()
     {
-        rb2d = this.GetComponentInChildren<Rigidbody2D>();
-        Vector2 throwStrenght = new Vector2(150f, 200f);
-        rb2d.AddForce(throwStrenght);
+        if (simulatePhysics == true)
+        {
+            rb2d = this.GetComponentInChildren<Rigidbody2D>();
+            Vector2 throwStrenght = new Vector2(150f, 200f);
+            rb2d.AddForce(throwStrenght);
+        }
+        else
+        {
+            CircleCollider2D pickupTrigger = GetComponent<CircleCollider2D>();
+            pickupTrigger.enabled = true;
+        }
     }
 
     public void Pickup()
