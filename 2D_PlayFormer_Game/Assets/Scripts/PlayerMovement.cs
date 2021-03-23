@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Jump");
         if (Mathf.Abs(rb2d.velocity.y) < 0.001f)
         {
-            rb2d.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
+            rb2d.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Force);
         }
     }
 

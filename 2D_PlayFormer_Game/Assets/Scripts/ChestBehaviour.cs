@@ -18,6 +18,7 @@ public class ChestBehaviour : MonoBehaviour, IInteractable
             ReplaceSprite();
             SpawnContent();
             Debug.Log("Chest opened!");
+            chestClosed = false;
         }
     }
 
