@@ -225,7 +225,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76310312}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.46, y: -0.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 719370328}
@@ -8471,7 +8471,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 5
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 3
   m_Material: {fileID: 0}
@@ -8518,8 +8518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926c3be45ea7f74448ca0567000f349a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 45
-  jumpHeight: 900
+  movementSpeed: 25
+  jumpHeight: 10
   climbingSpeed: 10
 --- !u!114 &2123201358
 MonoBehaviour:
@@ -8573,8 +8573,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.034252167, y: -0.2070534}
-  m_Size: {x: 0.7730179, y: 0.993532}
+  m_Offset: {x: -0.034252167, y: -0.1019097}
+  m_Size: {x: 0.7730179, y: 1.2038194}
   m_Direction: 0
 --- !u!1001 &4416337224592308728
 PrefabInstance:

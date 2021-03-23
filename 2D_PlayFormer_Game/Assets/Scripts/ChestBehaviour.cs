@@ -13,7 +13,7 @@ public class ChestBehaviour : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (chestClosed == true)
+        if (chestClosed)
         {
             ReplaceSprite();
             SpawnContent();
