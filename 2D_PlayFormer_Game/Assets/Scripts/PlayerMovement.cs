@@ -9,44 +9,48 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 5;
     public float climbingSpeed = 10;
 
-
     private Rigidbody2D rb2d;
     private Animator animator;
     private Vector3 movementDirection;
 
     private float rb2dGravityScale;
+    private float rb2dDrag;
 
     private float movementX;
     private float movementY;
     
-    private bool canClimb=false;
+    private bool canClimb;
+    private bool isClimbing;
+    private bool isJumping;
+    private bool isGrounded;
 
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
+        canClimb = false;
         rb2d = GetComponent<Rigidbody2D>();
         rb2dGravityScale = rb2d.gravityScale;
+        rb2dDrag = rb2d.drag;
         animator = GetComponentInChildren<Animator>();
     }
 
-    void OnMove(InputValue movementValue)
+    void OnMove(InputValue movementValue) // get player movement X axis: -1 -> going left; -2 -> going right; 0 -> no input
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
         FlipPlayer();
-        SetAnimationParameters();
     }
 
 
     void SetAnimationParameters()
     {
         animator.SetFloat("movementSpeedX", Mathf.Abs(movementX));
+        animator.SetFloat("movementSpeedY", Mathf.Abs(movementY));
+        animator.SetBool("isJumping", isJumping);
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetBool("isClimbing", isClimbing);
     }
 
-    void FlipPlayer()
+    void FlipPlayer() // flip player sprite based on movement direction
     {     
         if(movementX>0) // movement right
         {
@@ -60,11 +64,18 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = movementDirection;              
     }
 
-    void OnClimb(InputValue movementValue) //do poprawy
+    void OnClimb(InputValue movementValue) //action to perform when climbing buttons are pressed
     {
-        if (canClimb == true)
+        if (isClimbing == true)
         {
-            rb2d.gravityScale = 0;
+            Vector2 movementVector = movementValue.Get<Vector2>();
+            movementY = movementVector.y;
+            Debug.Log("movement y=" + movementVector.y);
+        }
+        else if (canClimb==true)
+        {
+            EnableDisableClimbingMode();
+
             Vector2 movementVector = movementValue.Get<Vector2>();
             movementY = movementVector.y;
             Debug.Log("movement y=" + movementVector.y);
@@ -75,44 +86,89 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnJump()
+    void OnJump() //action to perform when jump button is pressed
     {
-        Debug.Log("Jump");
-        if (Mathf.Abs(rb2d.velocity.y) < 0.001f)
+        if (isGrounded==true)
         {
-            rb2d.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Force);
+            Debug.Log("Jump");
+            rb2d.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
+            isJumping = true;
+        }
+        else if(isClimbing==true)
+        {
+            EnableDisableClimbingMode();
         }
     }
 
-    void Update()
+    void EnableDisableClimbingMode() 
     {
-        
+        if (isClimbing == false && canClimb==true)
+        {
+            rb2d.gravityScale = 0;
+            rb2d.drag = 20;
+            isClimbing = true;
+        }
+        else
+        {
+            rb2d.gravityScale = rb2dGravityScale;
+            rb2d.drag = rb2dDrag;
+            isClimbing = false;
+        }
     }
 
     void FixedUpdate()
     {
         Vector2 movementLeftRightUpDown = new Vector2(movementX * movementSpeed, movementY*climbingSpeed);
         rb2d.AddForce(movementLeftRightUpDown);
+        SetAnimationParameters();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "ClimbingTrigger")
+        string collisionTag = collision.tag;
+
+        switch(collisionTag) //perform action based on trigger tag
         {
-            canClimb = true;
-            Debug.Log("canClimb = true");
-        }       
+
+            case "Climbing": // allows player to enable climbing mode
+                {
+                    canClimb = true;
+                    Debug.Log("canClimb = true");
+                }break;
+                
+
+            case "Ground": // detect if player is touching ground
+                {
+                    isGrounded = true;
+                    isJumping = false; // player no longer in jumping state after landing
+                    Debug.Log("On ground");
+                }break;
+                
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.name == "ClimbingTrigger")
+        string collisionTag = collision.tag;
+
+        switch (collisionTag) //perform action based on trigger tag
         {
-            rb2d.gravityScale = rb2dGravityScale;
-            canClimb = false;
-            Debug.Log("canClimb = false");
+
+            case "Climbing": // player no longer able to use climbing mode
+                {
+                    canClimb = false;
+                    EnableDisableClimbingMode();
+                    Debug.Log("canClimb = false");
+                }
+                break;
+
+            case "Ground": // detect if player is touching ground
+                {
+                    isGrounded = false;
+                    Debug.Log("In air");
+                }
+                break;
         }
     }
-
 
 }
