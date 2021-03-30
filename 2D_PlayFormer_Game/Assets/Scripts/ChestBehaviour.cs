@@ -19,7 +19,13 @@ public class ChestBehaviour : MonoBehaviour, IInteractable
             SpawnContent();
             Debug.Log("Chest opened!");
             chestClosed = false;
+            this.GetComponent<Collider2D>().enabled = false;
         }
+    }
+
+    public void AutoInteract()
+    {
+        //
     }
 
     void SpawnContent()

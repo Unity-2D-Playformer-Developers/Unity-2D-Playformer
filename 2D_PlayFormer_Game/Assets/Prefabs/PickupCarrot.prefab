@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: -219459135
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8873b6448e7094ea9861c4adb3446863, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a3917d9ddd18744a69be8a1b1a3eaa88, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 7065809340290308641}
   - component: {fileID: 3733377149196180492}
   m_Layer: 0
-  m_Name: Pickup
-  m_TagString: PickupHealth
+  m_Name: PickupCarrot
+  m_TagString: PickupCarrot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

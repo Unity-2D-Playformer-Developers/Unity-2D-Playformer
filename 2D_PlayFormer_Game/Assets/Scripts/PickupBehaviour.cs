@@ -33,7 +33,7 @@ public class PickupBehaviour : MonoBehaviour, IPickupable
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.name=="TilemapCollisionLayer") // enable pickup trigger when object lands on the ground
+        if(collision.collider.tag=="Ground") // enable pickup trigger when object lands on the ground
                                                     
         {
             CircleCollider2D pickupTrigger = GetComponent<CircleCollider2D>();
@@ -43,7 +43,7 @@ public class PickupBehaviour : MonoBehaviour, IPickupable
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.name == "PlayerCharacter")
+        if (collider.tag == "Player")
         {
             Pickup();
         }

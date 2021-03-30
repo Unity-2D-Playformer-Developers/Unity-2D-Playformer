@@ -6,6 +6,13 @@ TagManager:
   tags:
   - Ground
   - Climbing
+  - OneWayCollider
+  - Wall
+  - JumpAttackHitbox
+  - Bounce
+  - PickupCoin
+  - PickupCarrot
+  - PickupHealth
   layers:
   - Default
   - TransparentFX
@@ -15,9 +22,9 @@ TagManager:
   - UI
   - GroundCollisionOnly
   - Player
-  - 
-  - 
-  - 
+  - Ground
+  - Wall
+  - Pickup
   - 
   - 
   - 
