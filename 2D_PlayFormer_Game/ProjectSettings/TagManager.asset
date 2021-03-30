@@ -13,6 +13,7 @@ TagManager:
   - PickupCoin
   - PickupCarrot
   - PickupHealth
+  - Slope
   layers:
   - Default
   - TransparentFX
@@ -70,4 +71,7 @@ TagManager:
     locked: 0
   - name: PlayerCharacter
     uniqueID: 4075508161
+    locked: 0
+  - name: Slope
+    uniqueID: 2374161215
     locked: 0
