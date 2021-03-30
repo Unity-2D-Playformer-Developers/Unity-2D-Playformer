@@ -7367,7 +7367,7 @@ GameObject:
   - component: {fileID: 946294403}
   - component: {fileID: 946294402}
   m_Layer: 8
-  m_Name: TilemapGroundLayer
+  m_Name: apGroundLayerLayer
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9839,8 +9839,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 723b5be9ef71dd94aae5fc9554ed434b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRb: {fileID: 0}
-  playerCharacter: {fileID: 0}
 --- !u!114 &2123201363
 MonoBehaviour:
   m_ObjectHideFlags: 0
