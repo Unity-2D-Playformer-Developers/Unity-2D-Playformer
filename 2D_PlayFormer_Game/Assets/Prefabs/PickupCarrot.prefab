@@ -130,6 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulatePhysics: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!58 &7065809340290308641
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -211,7 +214,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0010445118, y: -0.000000029802322}
+  m_Offset: {x: 0.06392443, y: 0.030495644}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -222,5 +225,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.81407905, y: 0.82870203}
+  m_Size: {x: 0.94401693, y: 1.0063722}
   m_EdgeRadius: 0

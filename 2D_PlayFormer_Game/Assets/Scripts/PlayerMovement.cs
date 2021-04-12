@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     public float movementSpeed = 10;
-    public float slopeMovementSpeedMod=30;
+    public float slopeMovementSpeedMod=30; // how fast player can move upwards when walking on slope
     public float jumpHeight = 5;
     public float climbingSpeed = 10;
 
@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private CapsuleCollider2D playerCollider;
     private PlayerActions playerActions;
-    private Vector3 movementDirection;
 
     private float rb2dGravityScale;
     private float rb2dDrag;
@@ -25,11 +24,14 @@ public class PlayerMovement : MonoBehaviour
     private float movementY; // used to determine player movement direction in Y axis
     private Vector2 slopeRaycastNormal;
 
+    private Vector3 movementDirection = new Vector3();
+    private Quaternion rotation; // rotation of player around Z axis when walking on the slope
+
     private bool canClimb; // used to determine if player can enable climbing mode
     private bool isClimbing; // used to determine if player is currently climbing
     private bool isJumping; // used to determine if player is jumping
     private bool isGrounded; // used to determine if player is on the ground
-    private bool onSlope;
+    private bool onSlope; // used to determine if player is walking on slope
 
 
     void Start()
@@ -64,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isClimbing", isClimbing);
     }
 
-    void FlipPlayer() // flip player sprite based on movement direction, handles slopes
+    void FlipPlayer() // flip player sprite based on movement direction
     {
         if(movementX>0) // movement right
         {
@@ -76,6 +78,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.localScale = movementDirection;
+    }
+    void RotatePlayer() 
+    {
+        if (onSlope)
+        {
+            rotation = Quaternion.Euler(0f, 0f, -slopeRaycastNormal.x * 20);
+        }
+        else
+        {
+            rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+
+        transform.rotation = rotation;
+
     }
 
     void OnClimb(InputValue movementValue) // action to perform when climbing buttons are pressed
@@ -105,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Jump");
             rb2d.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
+            isGrounded = false;
             isJumping = true;
         }
         else if(isClimbing==true)
@@ -113,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (isGrounded == false)
         {
-            playerActions.JumpAttack();
+            playerActions.JumpAttack(true);
         }
     }
 
@@ -134,10 +151,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool CheckIfGrounded()
+    private bool IsGrounded()
     {
         float extraHeight = 0.1f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, extraHeight, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0.1f, Vector2.down, extraHeight, groundLayer);
 
         Color rayColor = Color.green;
         if (raycastHit.collider == true)
@@ -147,28 +164,29 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(playerCollider.bounds.center + new Vector3(playerCollider.bounds.extents.x, 0), Vector2.down * (playerCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(playerCollider.bounds.center - new Vector3(playerCollider.bounds.extents.x, 0), Vector2.down * (playerCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(playerCollider.bounds.center - new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y + extraHeight), Vector2.right * (playerCollider.bounds.extents.x * 2f), rayColor);
-            
-        return raycastHit.collider != null;
 
+        return raycastHit.collider != null;
     }
 
     private void SlopeCheck()
     {
-        RaycastHit2D raycastHit = Physics2D.Raycast(playerCollider.bounds.center, Vector2.down, playerCollider.bounds.extents.y + 0.1f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.Raycast(playerCollider.bounds.center, Vector2.down, playerCollider.bounds.extents.y + 0.5f, groundLayer);
         slopeRaycastNormal = raycastHit.normal;
+        Debug.DrawRay(playerCollider.bounds.center, -slopeRaycastNormal, Color.cyan);
+        
         if (slopeRaycastNormal.x!=0)
         {
             onSlope = true;
+            RotatePlayer();
         }
         else
         {
             onSlope = false;
+            RotatePlayer();
         }
+        
         Debug.Log(slopeRaycastNormal = raycastHit.normal);
     }
-
-
-
 
     private void Update()
     {
@@ -177,15 +195,28 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 movementLeftRightUpDown;
+        Vector2 slopeMovement;
+        
         SlopeCheck();
         if (onSlope)
         {
-            Vector2 slopeMovement = new Vector2(-slopeRaycastNormal.x * slopeMovementSpeedMod, slopeRaycastNormal.y);
+            slopeMovement = new Vector2(-slopeRaycastNormal.x * slopeMovementSpeedMod, slopeRaycastNormal.y);
             rb2d.AddForce(slopeMovement);
         }
         movementLeftRightUpDown = new Vector2(movementX * movementSpeed, movementY * climbingSpeed);
         rb2d.AddForce( movementLeftRightUpDown);
-        isGrounded = CheckIfGrounded();
+
+        if (IsGrounded())
+        {
+            isGrounded = true;
+            playerActions.JumpAttack(false);
+        }
+        else
+        {
+            isGrounded = false;
+        }
+
+
         SetAnimationParameters();
     }
 
@@ -222,16 +253,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.collider.IsTouchingLayers(groundLayer))
+        {
+            isJumping = false;
+        }
+
         switch (collision.collider.tag) //perform action based on collider tag
         {
-
-            case "Ground":
-                isJumping = false;
-                break;
-
-            case "Bounce":
-                isJumping = false;
-                break;
+            //
         }
     }
 
@@ -239,9 +268,7 @@ public class PlayerMovement : MonoBehaviour
     {
         switch (collision.collider.tag) //perform action based on collider tag
         {
-            case "Slope":
-                onSlope = false;
-                break;
+            //
         }
     }
 

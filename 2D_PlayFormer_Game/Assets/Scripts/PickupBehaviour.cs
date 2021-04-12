@@ -5,6 +5,7 @@ using UnityEngine;
 public class PickupBehaviour : MonoBehaviour, IPickupable
 {
     public bool simulatePhysics;
+    public LayerMask groundLayer;
 
     private Rigidbody2D rb2d;
 
@@ -12,8 +13,8 @@ public class PickupBehaviour : MonoBehaviour, IPickupable
     {
         if (simulatePhysics == true)
         {
-            rb2d = this.GetComponentInChildren<Rigidbody2D>();
-            Vector2 throwStrenght = new Vector2(150f, 200f);
+            rb2d = this.GetComponentInChildren<Rigidbody2D>();  
+            Vector2 throwStrenght = new Vector2(Random.Range(-400f, 400f), Random.Range(50f, 400f));
             rb2d.AddForce(throwStrenght);
         }
         else
@@ -33,15 +34,18 @@ public class PickupBehaviour : MonoBehaviour, IPickupable
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.tag=="Ground") // enable pickup trigger when object lands on the ground
-                                                    
-        {
-            CircleCollider2D pickupTrigger = GetComponent<CircleCollider2D>();
-            pickupTrigger.enabled = true;
-        }
+         CircleCollider2D pickupTrigger = GetComponent<CircleCollider2D>();
+         pickupTrigger.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.tag == "Player")
+        {
+            Pickup();
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collider)
     {
         if (collider.tag == "Player")
         {

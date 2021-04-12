@@ -130,6 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulatePhysics: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!58 &7065809340290308641
 CircleCollider2D:
   m_ObjectHideFlags: 0

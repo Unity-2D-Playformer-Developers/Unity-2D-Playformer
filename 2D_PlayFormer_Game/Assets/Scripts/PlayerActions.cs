@@ -55,9 +55,9 @@ public class PlayerActions : MonoBehaviour
         GameObject carrotProjectile = Instantiate(carrotProjectilePrefab, carrotProjectileSpawnPoint);
     }
 
-    public void JumpAttack()
+    public void JumpAttack(bool performJumpAttack)
     {
-        if (isPerformingJumpAttack == false)
+        if (performJumpAttack && !isPerformingJumpAttack)
         {
             jumpAttackHitbox.enabled = true;
             isPerformingJumpAttack = true;
@@ -66,32 +66,37 @@ public class PlayerActions : MonoBehaviour
             rb2d.angularVelocity = 0f;
             rb2d.AddForce(new Vector2(0, -1*jumpAttackStrength), ForceMode2D.Impulse);
         }
+        else if(!performJumpAttack)
+        {
+            jumpAttackHitbox.enabled = false;
+            isPerformingJumpAttack = false;
+        }
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.tag == "Ground") || (collision.tag == "Bounce")) // check if player landed
-        {
-            isPerformingJumpAttack = false;
-            jumpAttackHitbox.enabled = false;
-            Debug.Log("Attack landed");
-        }
-        else if (collision.GetComponent<IPickupable>() != null) // check if object can be picked up
+        if (collision.GetComponent<IPickupable>() != null) // check if object can be picked up
         {
             Debug.Log("pickup");
             collision.GetComponent<IPickupable>().Pickup(); // removes object from game
             playerStats.Pickup(collision.tag); // triggers pickup effect based on pickup tag
         }
-        else if (collision.GetComponent<IDamageable>() != null) // check if object can be damaged (only during jump attack, when jump attack hitbox is enabled)
+
+        if (collision.GetComponent<IDamageable>() != null) // check if object can be damaged (only during jump attack, when jump attack hitbox is enabled)
         {
-            IDamageable damageableObejct= collision.GetComponent<IDamageable>();
+            IDamageable damageableObejct = collision.GetComponent<IDamageable>();
             damageableObejct.Damage(jumpAttackDmg);
-            rb2d.AddForce(new Vector2(0, 30), ForceMode2D.Impulse);
+
+            rb2d.velocity = Vector2.zero;
+            rb2d.angularVelocity = 0f;
+
+            rb2d.AddForce(new Vector2(0, 20), ForceMode2D.Impulse);
+
             isPerformingJumpAttack = false;
             jumpAttackHitbox.enabled = false;
         }
-      
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -112,9 +117,5 @@ public class PlayerActions : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Bounce")
-        {
-            rb2d.AddForce(new Vector2(0, 30), ForceMode2D.Impulse);
-        }
     }
 }

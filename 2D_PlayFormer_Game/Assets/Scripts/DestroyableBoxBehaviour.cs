@@ -4,25 +4,47 @@ using UnityEngine;
 
 public class DestroyableBoxBehaviour : MonoBehaviour, IDamageable
 {
+    public GameObject BoxContent;
+    public bool ContentRandomAmount = true;
+    public int ContentMaxAmount = 5;
+    public Transform ContentSpawnPosition;
+
+
+    void Start()
+    {
+    }
 
     public void Damage(int damageAmount)
     {
         Destroy();
     }
-    public  void Destroy()
+    public void Destroy()
     {
-        GameObject.Destroy(this.gameObject);
+        GetComponent<Animator>().SetTrigger("Destroy");
+        GetComponent<BoxCollider2D>().enabled = false;
+        SpawnContent();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void SpawnContent()
     {
-        
+        int spawnAmount;
+
+        if (ContentRandomAmount)
+        {
+            spawnAmount = Random.Range(1, ContentMaxAmount);
+        }
+        else
+        {
+            spawnAmount = ContentMaxAmount;
+        }
+
+        for (int i = spawnAmount; i > 0; i--)
+        {
+            GameObject pickup = Instantiate(BoxContent, ContentSpawnPosition);
+            pickup.transform.parent = null;
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

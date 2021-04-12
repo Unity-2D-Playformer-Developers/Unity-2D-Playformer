@@ -14,6 +14,8 @@ TagManager:
   - PickupCarrot
   - PickupHealth
   - Slope
+  - DestroyableGround
+  - Pickup
   layers:
   - Default
   - TransparentFX
