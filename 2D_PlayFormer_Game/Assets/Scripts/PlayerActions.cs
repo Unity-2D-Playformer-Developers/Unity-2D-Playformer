@@ -48,10 +48,10 @@ public class PlayerActions : MonoBehaviour
         }
         else
         {
-            if (playerStats.AmmoAmount > 0)
+            if (playerStats.GetAmmoAmount > 0)
             {
                 ThrowCarrotAttack();
-                playerStats.AmmoAmount--;
+                playerStats.AddAmmo(-1);
             }
         }
     }
@@ -82,13 +82,7 @@ public class PlayerActions : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<IPickupable>() != null) // check if object can be picked up
-        {
-            Debug.Log("pickup");
-            collision.GetComponent<IPickupable>().Pickup(); // removes object from game
-            playerStats.Pickup(collision.tag); // triggers pickup effect based on pickup tag
-        }
-
+       
         if (collision.GetComponent<IDamageable>() != null) // check if object can be damaged (only during jump attack, when jump attack hitbox is enabled)
         {
             IDamageable damageableObejct = collision.GetComponent<IDamageable>();

@@ -11,6 +11,10 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private int ammoAmount;
     private int coinsAmount;
 
+    public int GetHealth { get => health; }
+    public int GetAmmoAmount { get => ammoAmount; }
+    public int GetCoinsAmount { get => coinsAmount; }
+
     private void Start()
     {
         health = PlayerMaxHealth;
@@ -20,31 +24,18 @@ public class PlayerStats : MonoBehaviour, IDamageable
         coinsAmount = 0;
     }
 
-    public void Pickup(string itemType)
+    public void AddAmmo(int amount)
     {
-        switch(itemType)
+        ammoAmount = ammoAmount + amount;
+        if(ammoAmount>PlayerMaxAmmo)
         {
-            case "PickupCarrot":
-                if (ammoAmount < PlayerMaxAmmo)
-                {
-                    ammoAmount++;
-                    Debug.Log("carrot amout: " + ammoAmount.ToString());
-                }
-                break;
-            
-            case "PickupHealth":
-                if (health < PlayerMaxHealth)
-                {
-                    health++;
-                }
-                break;
-
-            case "PickupCoin":
-                coinsAmount++;
-                Debug.Log("coins amout: " + coinsAmount.ToString());
-                break;          
-                
+            ammoAmount = PlayerMaxAmmo;
         }
+    }
+
+    public void AddCoins(int amount)
+    {
+        coinsAmount = coinsAmount + amount;
     }
 
     public void Damage(int damageAmount)
@@ -61,17 +52,6 @@ public class PlayerStats : MonoBehaviour, IDamageable
         GameObject.Destroy(this);
     }
 
-    public int AmmoAmount
-    {
-        get
-        {
-            return ammoAmount;
-        }
-        set
-        {
-            ammoAmount = value;
-        }
-    }
 
 }
 

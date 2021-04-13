@@ -9527,6 +9527,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1847551720}
+  - component: {fileID: 1847551721}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -9548,6 +9549,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1847551721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847551719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1950b1ccd0256d243816bdb43156ae13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCharacter: {fileID: 2123201353}
 --- !u!4 &1867547874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2605929761083369971, guid: b3a03d53d32bd6747802e8cbf0131870,
@@ -9976,7 +9990,6 @@ GameObject:
   - component: {fileID: 2123201355}
   - component: {fileID: 2123201354}
   - component: {fileID: 2123201358}
-  - component: {fileID: 2123201362}
   - component: {fileID: 2123201363}
   - component: {fileID: 2123201357}
   - component: {fileID: 2123201356}
@@ -10189,18 +10202,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2123201362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123201353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 723b5be9ef71dd94aae5fc9554ed434b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2123201363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10213,7 +10214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284e3ac18d194b846bacaf75f559eb8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerMaxHealth: 10
+  PlayerMaxHealth: 15
   PlayerMaxAmmo: 10
 --- !u!1001 &2605929762739105041
 PrefabInstance:

@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupBehaviour : MonoBehaviour, IPickupable
+public class PickupBehaviour : MonoBehaviour
 {
     public bool simulatePhysics;
     public LayerMask groundLayer;
 
     private Rigidbody2D rb2d;
+    private string pickupType;
 
     private void OnEnable()
     {
+        pickupType = gameObject.tag;
         if (simulatePhysics == true)
         {
             rb2d = this.GetComponentInChildren<Rigidbody2D>();  
@@ -26,9 +28,8 @@ public class PickupBehaviour : MonoBehaviour, IPickupable
 
     public void Pickup()
     {
-         Debug.Log("pickup destroyed");
-         GameObject pickup = this.gameObject;
-         GameObject.Destroy(pickup);
+        GameManager.Instance.SendMessage(pickupType);   
+        Destroy(gameObject);
     }
 
 

@@ -4,15 +4,40 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private static GameManager _instance = null;
+    public static GameManager Instance { get => _instance; }
+
+    [SerializeField]
+    private GameObject playerCharacter;
+
+    private PlayerStats playerStats;
+
+    private void Awake()
     {
-        
+        if(_instance==null)
+        {
+            _instance = this;
+        }
+        else if(_instance!=this)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        playerStats = playerCharacter.GetComponent<PlayerStats>();
     }
+
+    public void PickupCarrot()
+    {
+        playerStats.AddAmmo(1);
+    }
+    public void PickupCoin()
+    {
+        playerStats.AddCoins(1);
+    }
+    
+
+    
 }
