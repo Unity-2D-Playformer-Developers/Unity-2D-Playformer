@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded; // used to determine if player is on the ground
     private bool onSlope; // used to determine if player is walking on slope
 
+    public bool IsClimbing { get => isClimbing; }
 
     void Start()
     {

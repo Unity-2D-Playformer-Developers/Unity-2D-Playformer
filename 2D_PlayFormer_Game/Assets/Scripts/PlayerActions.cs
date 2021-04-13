@@ -18,12 +18,13 @@ public class PlayerActions : MonoBehaviour
     private GameObject playerCharacter;
     private Rigidbody2D rb2d;
     private PlayerStats playerStats;
-    
+    private PlayerMovement playerMovement;
 
     private bool isPerformingJumpAttack=false;
 
     private void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
         rb2d = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<PlayerStats>();
         jumpAttackHitbox = JumpAttackHitbox.GetComponent<Collider2D>();
@@ -35,6 +36,11 @@ public class PlayerActions : MonoBehaviour
     private void OnAttackInteract()
     {
         Debug.Log("attack button press");
+
+        if(playerMovement.IsClimbing)
+        {
+            return;
+        }
 
         if (canInteract==true)
         {
