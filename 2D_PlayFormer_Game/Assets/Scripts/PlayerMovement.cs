@@ -105,8 +105,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (canClimb==true)
         {
-            EnableClimbingMode(true);
             Vector2 movementVector = movementValue.Get<Vector2>();
+            print("climbing:\t" + isGrounded + "\t" + movementVector.y);
+            if (isGrounded && movementVector.y <= 0)
+            {
+                return;
+            }
+            EnableClimbingMode(true);
             movementY = movementVector.y;
             Debug.Log("movement y=" + movementVector.y);
         }
