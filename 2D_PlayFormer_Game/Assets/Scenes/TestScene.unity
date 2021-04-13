@@ -3973,7 +3973,7 @@ GameObject:
   - component: {fileID: 386181703}
   - component: {fileID: 386181702}
   - component: {fileID: 386181704}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ClimbingTrigger
   m_TagString: Climbing
   m_Icon: {fileID: 0}
@@ -4713,7 +4713,7 @@ GameObject:
   m_Component:
   - component: {fileID: 688886033}
   - component: {fileID: 688886034}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: JumpAttackHitbox
   m_TagString: JumpAttackHitbox
   m_Icon: {fileID: 0}
@@ -9517,6 +9517,36 @@ Transform:
   - {fileID: 1984197463}
   m_Father: {fileID: 0}
   m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1847551719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1847551720}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1847551720
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847551719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.927931, y: -5.163707, z: -18.501698}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1867547874 stripped
 Transform:

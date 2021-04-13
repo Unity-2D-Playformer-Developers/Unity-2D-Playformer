@@ -186,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
             RotatePlayer();
         }
         
-        Debug.Log(slopeRaycastNormal = raycastHit.normal);
+        //Debug.Log(slopeRaycastNormal = raycastHit.normal);
     }
 
     private void Update()
