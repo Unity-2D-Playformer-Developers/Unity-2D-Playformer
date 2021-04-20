@@ -14,6 +14,10 @@ public class DestroyableBoxBehaviour : MonoBehaviour, IDamageable
     {
     }
 
+    public void Knockback(float knockDur, float knockbackPwr, Vector3 knockbackDir)
+    {
+
+    }
     public void Damage(int damageAmount)
     {
         Destroy();
