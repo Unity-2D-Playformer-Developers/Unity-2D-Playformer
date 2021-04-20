@@ -36,15 +36,15 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
 
         coinsAmount = 0;
-        HeartDisplayManager.UpdateScore(coinsAmount);
-        HeartDisplayManager.UpdateAmunition(ammoAmount);
-        HeartDisplayManager.UpdateHealth(health, PlayerMaxHealth);
+        UIManager.Instance.UpdateScore(coinsAmount);
+        UIManager.Instance.UpdateAmunition(ammoAmount);
+        UIManager.Instance.UpdateHealth(health, PlayerMaxHealth);
     }
 
     public void AddAmmo(int amount)
     {
         ammoAmount = ammoAmount + amount;
-        HeartDisplayManager.UpdateAmunition(ammoAmount);
+        UIManager.Instance.UpdateAmunition(ammoAmount);
         if (ammoAmount>PlayerMaxAmmo)
         {
             ammoAmount = PlayerMaxAmmo;
@@ -54,13 +54,13 @@ public class PlayerStats : MonoBehaviour, IDamageable
     public void AddCoins(int amount)
     {
         coinsAmount = coinsAmount + amount;
-        HeartDisplayManager.UpdateScore(coinsAmount);
+        UIManager.Instance.UpdateScore(coinsAmount);
     }
 
     public void Damage(int damageAmount)
     {
         this.health = health - damageAmount;
-        HeartDisplayManager.UpdateHealth(health, PlayerMaxHealth);
+        UIManager.Instance.UpdateHealth(health, PlayerMaxHealth);
         Debug.Log(health);
         if (health <= 0)
         {

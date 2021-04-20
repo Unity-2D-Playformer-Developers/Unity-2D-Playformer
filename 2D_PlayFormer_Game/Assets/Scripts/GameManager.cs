@@ -10,7 +10,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject playerCharacter;
 
+    private Rigidbody2D playerRB;
+    public Rigidbody2D PlayerRB { get => playerRB; }
+
     private PlayerStats playerStats;
+    public PlayerStats PlayerStats { get => playerStats; }
 
     private void Awake()
     {
@@ -22,11 +26,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    void Start()
-    {
+
         playerStats = playerCharacter.GetComponent<PlayerStats>();
+        playerRB = playerCharacter.GetComponent<Rigidbody2D>();
     }
 
     public void PickupCarrot()

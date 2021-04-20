@@ -4,19 +4,13 @@ using UnityEngine;
 
 public class Spikes : MonoBehaviour
 {
-    private PlayerActions player;
-    public Rigidbody2D playercharacter;
-    // Start is called before the first frame update
+    private Rigidbody2D playerRB;
+
     void Start()
     {
-        player = playercharacter.GetComponent<PlayerActions>();
+        playerRB = GameManager.Instance.PlayerRB;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.GetComponent<IDamageable>() != null)
@@ -29,7 +23,7 @@ public class Spikes : MonoBehaviour
             if (0.02f > timer)
             {
              
-                 float playerposition = playercharacter.position.x;
+                float playerposition = playerRB.position.x;
                 Debug.Log(playerposition);
                 float spikesposition = this.transform.position.x;
                 Debug.Log(spikesposition);
@@ -37,11 +31,9 @@ public class Spikes : MonoBehaviour
 
                 if (spikesposition< playerposition)
                 {
-                    playercharacter.AddForce(new Vector3(playercharacter.transform.position.x * -100, playercharacter.transform.position.y * -350, playercharacter.transform.position.z));
+                    playerRB.AddForce(new Vector3(playerRB.transform.position.x * -100, playerRB.transform.position.y * -350, playerRB.transform.position.z));
                 }
-                else playercharacter.AddForce(new Vector3(playercharacter.transform.position.x * 100, playercharacter.transform.position.y * -350, playercharacter.transform.position.z));
-
-
+                else playerRB.AddForce(new Vector3(playerRB.transform.position.x * 100, playerRB.transform.position.y * -350, playerRB.transform.position.z));
                 
 
             }
