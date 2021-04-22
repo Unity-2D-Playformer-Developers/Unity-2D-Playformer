@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - Climbing
+  - OneWayCollider
+  - Wall
+  - JumpAttackHitbox
+  - Bounce
+  - PickupCoin
+  - PickupCarrot
+  - PickupHealth
+  - Slope
+  - DestroyableGround
+  - Pickup
   layers:
   - Default
   - TransparentFX
@@ -11,14 +23,14 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - GroundCollisionOnly
+  - Player
+  - Ground
+  - Wall
+  - Pickup
+  - PlayerJumpAttackHitbox
+  - ClimbingTriggers
+  - Enemy
   - 
   - 
   - 
@@ -61,4 +73,13 @@ TagManager:
     locked: 0
   - name: PlatformFront
     uniqueID: 3810213901
+    locked: 0
+  - name: PlayerCharacter
+    uniqueID: 4075508161
+    locked: 0
+  - name: Enemy
+    uniqueID: 221250699
+    locked: 0
+  - name: Slope
+    uniqueID: 2374161215
     locked: 0
