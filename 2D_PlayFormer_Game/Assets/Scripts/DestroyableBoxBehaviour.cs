@@ -14,7 +14,7 @@ public class DestroyableBoxBehaviour : MonoBehaviour, IDamageable
     {
     }
 
-    public void Damage(int damageAmount)
+    public void TakeDamage(int damageAmount)
     {
         Destroy();
     }
@@ -46,7 +46,7 @@ public class DestroyableBoxBehaviour : MonoBehaviour, IDamageable
 
     }
 
-    public void Knockback(Vector2 damagingObjectPosition, Vector2 knockbackForce)
+    public void Knockback(Vector3 damagingObjectPosition, Vector2 knockbackForce)
     {
         throw new System.NotImplementedException();
     }

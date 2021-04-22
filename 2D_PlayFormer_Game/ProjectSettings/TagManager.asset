@@ -77,6 +77,9 @@ TagManager:
   - name: PlayerCharacter
     uniqueID: 4075508161
     locked: 0
+  - name: Enemy
+    uniqueID: 221250699
+    locked: 0
   - name: Slope
     uniqueID: 2374161215
     locked: 0

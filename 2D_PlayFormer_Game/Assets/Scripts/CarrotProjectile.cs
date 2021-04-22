@@ -23,7 +23,7 @@ public class CarrotProjectile : MonoBehaviour
     {
         if (collision.collider.GetComponent<IDamageable>() != null)
         {
-            collision.collider.GetComponent<IDamageable>().Damage(ProjectileDamage);
+            collision.collider.GetComponent<IDamageable>().TakeDamage(ProjectileDamage);
         }
 
         Destroy(this.gameObject);

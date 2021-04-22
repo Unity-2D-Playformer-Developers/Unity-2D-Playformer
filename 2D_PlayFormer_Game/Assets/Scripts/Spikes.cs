@@ -15,8 +15,8 @@ public class Spikes : MonoBehaviour
         IDamageable damageableObject = collision.collider.GetComponent<IDamageable>();
         if (damageableObject != null)
         {
-            damageableObject.Damage(1);
-            damageableObject.Knockback(new Vector2(transform.position.x, transform.position.y), new Vector2(5f,10f));
+            damageableObject.TakeDamage(1);
+            damageableObject.Knockback(transform.position, new Vector2(5f,10f));
             Debug.Log("player on spikes");
         }
     }

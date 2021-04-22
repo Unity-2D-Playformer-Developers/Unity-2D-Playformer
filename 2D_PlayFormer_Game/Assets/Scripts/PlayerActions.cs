@@ -65,7 +65,6 @@ public class PlayerActions : MonoBehaviour
     {
         if (performJumpAttack && !isPerformingJumpAttack)
         {
-            jumpAttackHitbox.enabled = true;
             isPerformingJumpAttack = true;
 
             rb2d.velocity = Vector2.zero;
@@ -74,7 +73,6 @@ public class PlayerActions : MonoBehaviour
         }
         else if(!performJumpAttack)
         {
-            jumpAttackHitbox.enabled = false;
             isPerformingJumpAttack = false;
         }
     }
@@ -83,19 +81,6 @@ public class PlayerActions : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
        
-        if (collision.GetComponent<IDamageable>() != null) // check if object can be damaged (only during jump attack, when jump attack hitbox is enabled)
-        {
-            IDamageable damageableObejct = collision.GetComponent<IDamageable>();
-            damageableObejct.Damage(jumpAttackDmg);
-
-            rb2d.velocity = Vector2.zero;
-            rb2d.angularVelocity = 0f;
-
-            rb2d.AddForce(new Vector2(0, 20), ForceMode2D.Impulse);
-
-            isPerformingJumpAttack = false;
-            jumpAttackHitbox.enabled = false;
-        }
 
     }
 
@@ -117,5 +102,17 @@ public class PlayerActions : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.GetComponent<IDamageable>() != null && isPerformingJumpAttack) // check if object can be damaged (only during jump attack, when jump attack hitbox is enabled)
+        {
+            IDamageable damageableObejct = collision.collider.GetComponent<IDamageable>();
+            damageableObejct.TakeDamage(jumpAttackDmg);
+
+            rb2d.velocity = Vector2.zero;
+            rb2d.angularVelocity = 0f;
+
+            rb2d.AddForce(new Vector2(0, 20), ForceMode2D.Impulse);
+
+            isPerformingJumpAttack = false;
+        }
     }
 }
