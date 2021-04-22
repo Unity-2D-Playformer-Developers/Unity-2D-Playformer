@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void EnableClimbingMode(bool enable) 
+    public void EnableClimbingMode(bool enable) 
     {
         if (enable == true && isClimbing == false && canClimb==true)
         {

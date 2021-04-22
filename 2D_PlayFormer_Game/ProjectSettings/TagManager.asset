@@ -30,7 +30,7 @@ TagManager:
   - Pickup
   - PlayerJumpAttackHitbox
   - ClimbingTriggers
-  - Mob
+  - Enemy
   - 
   - 
   - 

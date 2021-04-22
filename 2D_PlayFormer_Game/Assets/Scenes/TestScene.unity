@@ -9525,7 +9525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1371866092
 Transform:
   m_ObjectHideFlags: 0
@@ -10445,6 +10445,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 579241202939056464, guid: 748b42f6d874e5b4b99a4618ffca6bde,
         type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 579241202939056464, guid: 748b42f6d874e5b4b99a4618ffca6bde,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -11202,6 +11207,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986423804}
   m_CullTransparentMesh: 1
+--- !u!1 &2003115961 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2472312936972163600, guid: 92d944e98bd91794a85894798ca33083,
+    type: 3}
+  m_PrefabInstance: {fileID: 2472312935198838941}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2003115962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003115961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8597046858bccc445aed3c17b9d053d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PauseM: {fileID: 1837810775}
+  hearts:
+  - {fileID: 1986423806}
+  - {fileID: 1969794908}
+  - {fileID: 87148128}
+  - {fileID: 515443661}
+  - {fileID: 353134241}
+  fullHeart: {fileID: 21300000, guid: cfca5030157bbd74bbaa3b29f8b00fa4, type: 3}
+  emptyHeart: {fileID: 21300000, guid: 6e92c55031f490749898737f545ea4f0, type: 3}
+  Score: {fileID: 1921987794}
+  Ammunition: {fileID: 1564016556}
 --- !u!1 &2015256286
 GameObject:
   m_ObjectHideFlags: 0
@@ -11838,8 +11872,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerMaxHealth: 5
   PlayerMaxAmmo: 99
-  AA: {fileID: 2123201353}
-  HeartDisplayManager: {fileID: 0}
 --- !u!1001 &2472312935198838941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11907,6 +11939,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2472312936972163603, guid: 92d944e98bd91794a85894798ca33083,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 2015256288}
     - target: {fileID: 2472312936972163603, guid: 92d944e98bd91794a85894798ca33083,
         type: 3}
       propertyPath: playerCharacter

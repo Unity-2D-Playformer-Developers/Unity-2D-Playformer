@@ -32,18 +32,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    //Pause
+    #region Pause Menu   
     private void OnPause()
     {
 
-            if (GameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
+        if (GameIsPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
 
     }
     void Pause()
@@ -52,17 +52,16 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
-
     public void Resume()
     {
         PauseM.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
-    //Pause
+    #endregion
 
 
-    //Health display
+    #region Health Display
     public void UpdateAmunition(int carommunition)
     {
         Ammunition.text = "" + carommunition;
@@ -95,5 +94,5 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-    //Health display
+    #endregion
 }

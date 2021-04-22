@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject playerCharacter;
 
+    [SerializeField]
+    private Camera mainCamera;
+
     private Rigidbody2D playerRB;
     public Rigidbody2D PlayerRB { get => playerRB; }
 
@@ -40,7 +43,14 @@ public class GameManager : MonoBehaviour
     {
         playerStats.AddCoins(1);
     }
-    
 
-    
+    public void DisableCameraFollow()
+    {
+        mainCamera.GetComponent<CameraFollow>().enabled = false;
+    }
+    public void EnableCameraFollow()
+    {
+        mainCamera.GetComponent<CameraFollow>().enabled = true;
+    }
+
 }
