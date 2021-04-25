@@ -15,14 +15,24 @@ public class CarrotProjectile : MonoBehaviour
 
     void Start()
     {
-        float throwDirection = transform.lossyScale.x;
+        float throwDirection = 1f;
+
+
         transform.parent = null;
         rb2d = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         carrotCollider = GetComponent<CapsuleCollider2D>();
 
         destroyParticle = GetComponentInChildren<ParticleSystem>();
+
+        if (GameManager.Instance.GetIsPlayerFacingLeft == true)
+        {
+            throwDirection = -1f;
+            sprite.flipY = true;
+            Debug.LogWarning("flip");
+        }
         rb2d.AddForce(new Vector2((10f* throwDirection), 0f), ForceMode2D.Impulse);
+
 
     }
 

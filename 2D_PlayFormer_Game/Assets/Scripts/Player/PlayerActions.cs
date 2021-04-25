@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerActions : MonoBehaviour
 {
     [SerializeField]private GameObject JumpAttackHitbox;
-    [SerializeField]private Transform carrotProjectileSpawnPoint;
+    [SerializeField]private Transform carrotProjectileSpawnPointRight;
+    [SerializeField] private Transform carrotProjectileSpawnPointLeft;
     [SerializeField]private GameObject carrotProjectilePrefab;
     public int jumpAttackStrength = 15;
     public int jumpAttackDmg = 5;
@@ -23,6 +24,8 @@ public class PlayerActions : MonoBehaviour
     private ParticleSystem jumpAttackParticle;
 
     private bool isPerformingJumpAttack=false;
+    private float rb2dGravcity;
+
 
     private void Start()
     {
@@ -33,6 +36,7 @@ public class PlayerActions : MonoBehaviour
         jumpAttackHitbox.enabled = false;
         animator = GetComponent<Animator>();
         jumpAttackParticle = GetComponentInChildren<ParticleSystem>();
+        rb2dGravcity = rb2d.gravityScale;
     }
 
     
@@ -62,7 +66,15 @@ public class PlayerActions : MonoBehaviour
 
     void ThrowCarrotAttack()
     {
-        GameObject carrotProjectile = Instantiate(carrotProjectilePrefab, carrotProjectileSpawnPoint);
+        if (GameManager.Instance.GetIsPlayerFacingLeft == true) 
+        {
+            GameObject carrotProjectile = Instantiate(carrotProjectilePrefab, carrotProjectileSpawnPointLeft);
+        }
+        else
+        {
+            GameObject carrotProjectile = Instantiate(carrotProjectilePrefab, carrotProjectileSpawnPointRight);
+        }
+       
     }
 
     public void JumpAttack(bool performJumpAttack)
@@ -74,8 +86,7 @@ public class PlayerActions : MonoBehaviour
 
             rb2d.velocity = Vector2.zero;
             rb2d.angularVelocity = 0f;
-            rb2d.AddForce(new Vector2(0, -1*jumpAttackStrength), ForceMode2D.Impulse);
-            jumpAttackHitbox.enabled = true;
+            rb2d.gravityScale = 0;         
         }
         else if(!performJumpAttack)
         {
@@ -83,6 +94,12 @@ public class PlayerActions : MonoBehaviour
             jumpAttackHitbox.enabled = false;
             animator.SetBool("jumpAttack", isPerformingJumpAttack);
         }
+    }
+    public void JumpAttackPerform()
+    {
+        rb2d.gravityScale = rb2dGravcity;
+        jumpAttackHitbox.enabled = true;
+        rb2d.AddForce(new Vector2(0, -1*jumpAttackStrength), ForceMode2D.Impulse);
     }
 
 
@@ -119,11 +136,11 @@ public class PlayerActions : MonoBehaviour
             rb2d.angularVelocity = 0f;
             rb2d.AddForce(new Vector2(0, 20), ForceMode2D.Impulse);
             jumpAttackParticle.Play();
+            JumpAttack(false);
         }
         else if(isPerformingJumpAttack)
         {
             jumpAttackParticle.Play();
         }
-        JumpAttack(false);
     }
 }

@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2605929761083369935}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.14, y: -0.44, z: 0}
+  m_LocalPosition: {x: -6.14, y: -0.44, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2605929761147869884}
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -484753395
-  m_SortingLayer: 7
+  m_SortingLayerID: -219459135
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 95a733abd975494468927ed0042eda5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -166,6 +166,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2605929761083369971}
     m_Modifications:
+    - target: {fileID: 3718419492194728068, guid: 3001ffaaf972b6249a952619cd9f58bc,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718419492194728068, guid: 3001ffaaf972b6249a952619cd9f58bc,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718419492194728068, guid: 3001ffaaf972b6249a952619cd9f58bc,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1957838719
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718419492194728068, guid: 3001ffaaf972b6249a952619cd9f58bc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2b338aced5fa23443b2e2644090b4df2, type: 2}
     - target: {fileID: 3718419492194728069, guid: 3001ffaaf972b6249a952619cd9f58bc,
         type: 3}
       propertyPath: m_Name
@@ -184,7 +204,7 @@ PrefabInstance:
     - target: {fileID: 3718419492194728122, guid: 3001ffaaf972b6249a952619cd9f58bc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.746
+      value: -0.056
       objectReference: {fileID: 0}
     - target: {fileID: 3718419492194728122, guid: 3001ffaaf972b6249a952619cd9f58bc,
         type: 3}
@@ -230,6 +250,16 @@ PrefabInstance:
         type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718419492194728123, guid: 3001ffaaf972b6249a952619cd9f58bc,
+        type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718419492194728123, guid: 3001ffaaf972b6249a952619cd9f58bc,
+        type: 3}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3718419492194728123, guid: 3001ffaaf972b6249a952619cd9f58bc,
         type: 3}

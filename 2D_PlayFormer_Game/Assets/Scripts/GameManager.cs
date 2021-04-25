@@ -16,16 +16,20 @@ public class GameManager : MonoBehaviour
     private Rigidbody2D playerRB;
     public Rigidbody2D PlayerRB { get => playerRB; }
 
+
     private PlayerStats playerStats;
     public PlayerStats PlayerStats { get => playerStats; }
 
+    private SpriteRenderer playerSprite;
+
+
     private void Awake()
     {
-        if(_instance==null)
+        if (_instance == null)
         {
             _instance = this;
         }
-        else if(_instance!=this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
         }
@@ -33,12 +37,13 @@ public class GameManager : MonoBehaviour
 
         playerStats = playerCharacter.GetComponent<PlayerStats>();
         playerRB = playerCharacter.GetComponent<Rigidbody2D>();
+        playerSprite = playerCharacter.GetComponent<SpriteRenderer>();
     }
 
     public void PickupCarrot(GameObject pickup)
     {
         bool pickupSuccessfull = playerStats.AddAmmo(1);
-        if(pickupSuccessfull)
+        if (pickupSuccessfull)
         {
             Destroy(pickup);
         }
@@ -54,7 +59,7 @@ public class GameManager : MonoBehaviour
     }
     public void SpendCoin(int amount)
     {
-        if(playerStats.GetCoinsAmount>=amount)
+        if (playerStats.GetCoinsAmount >= amount)
         {
             playerStats.AddCoins(-amount);
             UIManager.Instance.UpdateCoins(playerStats.GetCoinsAmount);
@@ -70,6 +75,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public void DisableCameraFollow()
     {
         mainCamera.GetComponent<CameraFollow>().enabled = false;
@@ -79,4 +85,8 @@ public class GameManager : MonoBehaviour
         mainCamera.GetComponent<CameraFollow>().enabled = true;
     }
 
+    public bool GetIsPlayerFacingLeft
+    {
+        get { return playerSprite.flipX; }
+    }
 }

@@ -144,6 +144,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3782929283570080654}
     m_Modifications:
+    - target: {fileID: 3718419492194728068, guid: c612217ff0a02ef479f8417ac1f0a696,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718419492194728068, guid: c612217ff0a02ef479f8417ac1f0a696,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -484753395
+      objectReference: {fileID: 0}
     - target: {fileID: 3718419492194728069, guid: c612217ff0a02ef479f8417ac1f0a696,
         type: 3}
       propertyPath: m_Name
