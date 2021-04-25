@@ -35,13 +35,39 @@ public class GameManager : MonoBehaviour
         playerRB = playerCharacter.GetComponent<Rigidbody2D>();
     }
 
-    public void PickupCarrot()
+    public void PickupCarrot(GameObject pickup)
     {
-        playerStats.AddAmmo(1);
+        bool pickupSuccessfull = playerStats.AddAmmo(1);
+        if(pickupSuccessfull)
+        {
+            Destroy(pickup);
+        }
     }
-    public void PickupCoin()
+    public void PickupCoin(GameObject pickup)
     {
-        playerStats.AddCoins(1);
+        bool pickupSuccessfull = playerStats.AddCoins(1);
+        if (pickupSuccessfull)
+        {
+            playerStats.AddScore(1);
+            Destroy(pickup);
+        }
+    }
+    public void SpendCoin(int amount)
+    {
+        if(playerStats.GetCoinsAmount>=amount)
+        {
+            playerStats.AddCoins(-amount);
+            UIManager.Instance.UpdateCoins(playerStats.GetCoinsAmount);
+        }
+    }
+
+    public void PickupHealth(GameObject pickup)
+    {
+        bool pickupSuccessfull = playerStats.AddHealth(1);
+        if (pickupSuccessfull)
+        {
+            Destroy(pickup);
+        }
     }
 
     public void DisableCameraFollow()

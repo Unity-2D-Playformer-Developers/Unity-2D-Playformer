@@ -51,6 +51,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  rb2d: {fileID: -48648027501103231}
 --- !u!58 &7065809340290308641
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -205,7 +206,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -219459135
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 110f17886feb1e847814f01bff081d4d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
