@@ -24,6 +24,7 @@ public class PlayerActions : MonoBehaviour
     private ParticleSystem jumpAttackParticle;
 
     private bool isPerformingJumpAttack=false;
+    public bool IsPerformingJumpAttack { get => isPerformingJumpAttack; }
     private float rb2dGravcity;
 
 

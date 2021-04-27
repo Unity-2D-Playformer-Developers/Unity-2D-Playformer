@@ -222,6 +222,12 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         }
 
+        if(!isClimbing && !playerActions.IsPerformingJumpAttack)
+        {
+            rb2d.gravityScale = rb2dGravityScale;
+            rb2d.drag = rb2dDrag;
+        }
+
 
         SetAnimationParameters();
     }
