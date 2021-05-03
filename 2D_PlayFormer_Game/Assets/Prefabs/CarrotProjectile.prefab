@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 3782929283570080640}
   - component: {fileID: 3782929283570080643}
   - component: {fileID: 3782929283570080655}
+  - component: {fileID: 6966161898775667250}
+  - component: {fileID: 3085278671589540340}
   m_Layer: 7
   m_Name: CarrotProjectile
   m_TagString: Untagged
@@ -137,6 +139,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectileDamage: 10
   ProjectileThrowStrength: 10
+--- !u!114 &6966161898775667250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782929283570080642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &3085278671589540340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782929283570080642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1001 &5369275927532532379
 PrefabInstance:
   m_ObjectHideFlags: 0

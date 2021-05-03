@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class CarrotProjectile : MonoBehaviour
+public class CarrotProjectile : NetworkBehaviour
 {
 
     public int ProjectileDamage = 10;

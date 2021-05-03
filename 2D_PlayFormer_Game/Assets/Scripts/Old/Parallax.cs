@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Parallax : MonoBehaviour
+public class Parallax : NetworkBehaviour
 {
 
     private float length, startpos;

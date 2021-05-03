@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PickupBehaviour : MonoBehaviour
+public class PickupBehaviour : NetworkBehaviour
 {
     public bool simulatePhysics;
     public LayerMask groundLayer;

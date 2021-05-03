@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 using UnityEngine.InputSystem;
 
-public class PlayerStats : MonoBehaviour, IDamageable
+public class PlayerStats : NetworkBehaviour, IDamageable
 {
     public int PlayerMaxHealth;
     public int PlayerMaxAmmo;

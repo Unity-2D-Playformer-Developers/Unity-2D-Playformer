@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
 
@@ -49,10 +50,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void OnMove(InputValue movementValue) // get player movement X axis: -1 -> going left; 1 -> going right; 0 -> no input
-    {        
-        Vector2 movementVector = movementValue.Get<Vector2>();
-        movementX = movementVector.x;
-        FlipPlayer();
+    {
+        if(isLocalPlayer)
+        {
+            Vector2 movementVector = movementValue.Get<Vector2>();
+            movementX = movementVector.x;
+            FlipPlayer();
+        }
     }
 
 
@@ -82,78 +86,90 @@ public class PlayerMovement : MonoBehaviour
     }
     void RotatePlayer() 
     {
-        if (onSlope)
+        if(isLocalPlayer)
         {
-            rotation = Quaternion.Euler(0f, 0f, -slopeRaycastNormal.x * 20);
-        }
-        else
-        {
-            rotation = Quaternion.Euler(0f, 0f, 0f);
-        }
+            if (onSlope)
+            {
+                rotation = Quaternion.Euler(0f, 0f, -slopeRaycastNormal.x * 20);
+            }
+            else
+            {
+                rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
 
-        transform.rotation = rotation;
+            transform.rotation = rotation;
+        }
 
     }
 
     void OnClimb(InputValue movementValue) // action to perform when climbing buttons are pressed
     {
-        if (isClimbing == true)
+        if(isLocalPlayer)
         {
-            Vector2 movementVector = movementValue.Get<Vector2>();
-            movementY = movementVector.y;
-            Debug.Log("movement y=" + movementVector.y);
-        }
-        else if (canClimb==true)
-        {
-            Vector2 movementVector = movementValue.Get<Vector2>();
-            print("climbing:\t" + isGrounded + "\t" + movementVector.y);
-            if (isGrounded && movementVector.y <= 0)
+            if (isClimbing == true)
             {
-                return;
+                Vector2 movementVector = movementValue.Get<Vector2>();
+                movementY = movementVector.y;
+                Debug.Log("movement y=" + movementVector.y);
             }
-            EnableClimbingMode(true);
-            movementY = movementVector.y;
-            Debug.Log("movement y=" + movementVector.y);
-        }
-        else // when player is not allowed to use climbing mode
-        {
-            movementY = 0.0f;
+            else if (canClimb == true)
+            {
+                Vector2 movementVector = movementValue.Get<Vector2>();
+                print("climbing:\t" + isGrounded + "\t" + movementVector.y);
+                if (isGrounded && movementVector.y <= 0)
+                {
+                    return;
+                }
+                EnableClimbingMode(true);
+                movementY = movementVector.y;
+                Debug.Log("movement y=" + movementVector.y);
+            }
+            else // when player is not allowed to use climbing mode
+            {
+                movementY = 0.0f;
+            }
         }
     }
 
     void OnJump() //action to perform when jump button is pressed
     {
-        if (isGrounded==true)
+        if(isLocalPlayer)
         {
-            Debug.Log("Jump");
-            rb2d.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
-            isGrounded = false;
-            isJumping = true;
-        }
-        else if(isClimbing==true)
-        {
-            EnableClimbingMode(false);
-        }
-        else if (isGrounded == false)
-        {
-            playerActions.JumpAttack(true);
+            if (isGrounded)
+            {
+                Debug.Log("Jump");
+                rb2d.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
+                isGrounded = false;
+                isJumping = true;
+            }
+            else if (isClimbing)
+            {
+                EnableClimbingMode(false);
+            }
+            else if (!isGrounded)
+            {
+                playerActions.JumpAttack(true);
+            }
         }
     }
 
     public void EnableClimbingMode(bool enable) 
     {
-        if (enable == true && isClimbing == false && canClimb==true)
+        if(isLocalPlayer)
         {
-            rb2d.gravityScale = 0;
-            rb2d.drag = 20;
-            isClimbing = true;
-        }
-        else if(enable==false)
-        {
-            isClimbing = false;
-            movementY = 0f;
-            rb2d.gravityScale = rb2dGravityScale;
-            rb2d.drag = rb2dDrag;
+            if (enable == true && isClimbing == false && canClimb == true)
+            {
+                rb2d.gravityScale = 0;
+                rb2d.drag = 20;
+                isClimbing = true;
+            }
+            else if (enable == false)
+            {
+                isClimbing = false;
+                movementY = 0f;
+                rb2d.gravityScale = rb2dGravityScale;
+                rb2d.drag = rb2dDrag;
+            }
         }
     }
 
@@ -194,85 +210,92 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(slopeRaycastNormal = raycastHit.normal);
     }
 
-    private void Update()
-    {
-    }
-
     void FixedUpdate()
     {
-        Vector2 movementLeftRightUpDown;
-        Vector2 slopeMovement;
-        
-        SlopeCheck();
-        if (onSlope)
+        if(isLocalPlayer)
         {
-            slopeMovement = new Vector2(-slopeRaycastNormal.x * slopeMovementSpeedMod, slopeRaycastNormal.y);
-            rb2d.AddForce(slopeMovement);
-        }
-        movementLeftRightUpDown = new Vector2(movementX * movementSpeed, movementY * climbingSpeed);
-        rb2d.AddForce( movementLeftRightUpDown);
+            Vector2 movementLeftRightUpDown;
+            Vector2 slopeMovement;
 
-        if (IsGrounded())
-        {
-            isGrounded = true;
-            playerActions.JumpAttack(false);
-        }
-        else
-        {
-            isGrounded = false;
-        }
+            SlopeCheck();
+            if (onSlope)
+            {
+                slopeMovement = new Vector2(-slopeRaycastNormal.x * slopeMovementSpeedMod, slopeRaycastNormal.y);
+                rb2d.AddForce(slopeMovement);
+            }
+            movementLeftRightUpDown = new Vector2(movementX * movementSpeed, movementY * climbingSpeed);
+            rb2d.AddForce(movementLeftRightUpDown);
 
-        if(!isClimbing && !playerActions.IsPerformingJumpAttack)
-        {
-            rb2d.gravityScale = rb2dGravityScale;
-            rb2d.drag = rb2dDrag;
+            if (IsGrounded())
+            {
+                isGrounded = true;
+                playerActions.JumpAttack(false);
+            }
+            else
+            {
+                isGrounded = false;
+            }
+
+            if (!isClimbing && !playerActions.IsPerformingJumpAttack)
+            {
+                rb2d.gravityScale = rb2dGravityScale;
+                rb2d.drag = rb2dDrag;
+            }
+
+
+            SetAnimationParameters();
         }
-
-
-        SetAnimationParameters();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        switch(collision.tag) //perform action based on trigger tag
+        if(isLocalPlayer)
         {
+            switch (collision.tag) //perform action based on trigger tag
+            {
+                case "Climbing": // allows player to enable climbing mode
+                    canClimb = true;
+                    Debug.Log("canClimb = true");
+                    break;
 
-            case "Climbing": // allows player to enable climbing mode
-                canClimb = true;
-                Debug.Log("canClimb = true");
-                break;
-
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        switch (collision.tag) //perform action based on trigger tag
+        if(isLocalPlayer)
         {
+            switch (collision.tag) //perform action based on trigger tag
+            {
 
-            case "Climbing": // player no longer able to use climbing mode
-                canClimb = false;
-                if (isClimbing == true)
-                {
-                    EnableClimbingMode(false);
-                }
-                Debug.Log("canClimb = false");
-                break;
+                case "Climbing": // player no longer able to use climbing mode
+                    canClimb = false;
+                    if (isClimbing == true)
+                    {
+                        EnableClimbingMode(false);
+                    }
+                    Debug.Log("canClimb = false");
+                    break;
 
+            }
         }
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.IsTouchingLayers(groundLayer))
+        if(isLocalPlayer)
         {
-            isJumping = false;
-        }
+            if (collision.collider.IsTouchingLayers(groundLayer))
+            {
+                isJumping = false;
+            }
 
-        switch (collision.collider.tag) //perform action based on collider tag
-        {
-            //
+            switch (collision.collider.tag) //perform action based on collider tag
+            {
+                //
+            }
         }
     }
 

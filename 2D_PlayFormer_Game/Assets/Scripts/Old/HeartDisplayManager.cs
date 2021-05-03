@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Mirror;
 using TMPro;
 
-public class HeartDisplayManager : MonoBehaviour
+public class HeartDisplayManager : NetworkBehaviour
 {
     
    

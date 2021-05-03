@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 using UnityEngine.InputSystem;
 
-public class PlayerActions : MonoBehaviour
+public class PlayerActions : NetworkBehaviour
 {
     [SerializeField]private GameObject JumpAttackHitbox;
     [SerializeField]private Transform carrotProjectileSpawnPointRight;
@@ -40,7 +41,11 @@ public class PlayerActions : MonoBehaviour
         rb2dGravcity = rb2d.gravityScale;
     }
 
-    
+    public override void OnStartLocalPlayer()
+    {
+        var camera = Camera.main;
+        camera.GetComponent<CameraFollow>().target = transform;
+    }
 
     private void OnAttackInteract()
     {

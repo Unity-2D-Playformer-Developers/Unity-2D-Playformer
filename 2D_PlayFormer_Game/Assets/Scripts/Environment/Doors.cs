@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Doors : MonoBehaviour, IInteractable
+public class Doors : NetworkBehaviour, IInteractable
 {
     public int price;
 

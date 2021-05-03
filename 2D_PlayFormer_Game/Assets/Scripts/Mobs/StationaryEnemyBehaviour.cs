@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class StationaryEnemyBehaviour : MonoBehaviour, IDamageable
+public class StationaryEnemyBehaviour : NetworkBehaviour, IDamageable
 {
     public int AttackDamage;
     public float MaxHealth;

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using Mirror;
 
-public class EnemyBehaviour : MonoBehaviour, IDamageable
+public class EnemyBehaviour : NetworkBehaviour, IDamageable
 {
 
     public float IdleVisionRange;

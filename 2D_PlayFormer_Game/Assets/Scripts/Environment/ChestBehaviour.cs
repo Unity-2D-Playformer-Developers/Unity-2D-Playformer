@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class ChestBehaviour : MonoBehaviour, IInteractable
+public class ChestBehaviour : NetworkBehaviour, IInteractable
 {
     public GameObject ChestContent;
     public bool ContentRandomAmount=true;

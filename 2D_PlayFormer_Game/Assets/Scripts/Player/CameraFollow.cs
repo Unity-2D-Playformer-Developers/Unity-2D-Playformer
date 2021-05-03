@@ -1,11 +1,11 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : NetworkBehaviour
 {
-
-    [SerializeField] private Transform target;
+    [SerializeField] public Transform target;
 
     [SerializeField] [Range(0.1f,1f)]
     
@@ -21,6 +21,7 @@ public class CameraFollow : MonoBehaviour
         {
             Vector3 desiredPosition = target.position + offset;
             transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
+            print("camera follow: transform.position: " + transform.position);
         }
     }
 }

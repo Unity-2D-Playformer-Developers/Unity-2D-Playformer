@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class SpriteReplacer : MonoBehaviour
+public class SpriteReplacer : NetworkBehaviour
 {
     public SpriteRenderer spriteRenderer;
     public Sprite sprite;

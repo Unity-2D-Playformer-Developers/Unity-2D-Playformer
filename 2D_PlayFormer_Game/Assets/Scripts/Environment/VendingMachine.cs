@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VendingMachine : MonoBehaviour, IInteractable
+public class VendingMachine : NetworkBehaviour, IInteractable
 {
     [SerializeField]
     private Transform itemSpawnPoint;

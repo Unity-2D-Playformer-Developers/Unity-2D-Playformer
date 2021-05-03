@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class DestroyableBoxBehaviour : MonoBehaviour, IDamageable
+public class DestroyableBoxBehaviour : NetworkBehaviour, IDamageable
 {
     public GameObject BoxContent;
     public bool ContentRandomAmount = true;
