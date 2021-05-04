@@ -12,12 +12,11 @@ public class PlayerActions : NetworkBehaviour
     [SerializeField]private GameObject carrotProjectilePrefab;
     public int jumpAttackStrength = 15;
     public int jumpAttackDmg = 5;
-   
+
     private CapsuleCollider2D jumpAttackHitbox;
     private bool canInteract;
     private string interactionTriggerName;   
     private IInteractable interactableObject;
-    private GameObject playerCharacter;
     private Rigidbody2D rb2d;
     private PlayerStats playerStats;
     private PlayerMovement playerMovement;
@@ -45,6 +44,7 @@ public class PlayerActions : NetworkBehaviour
     {
         var camera = Camera.main;
         camera.GetComponent<CameraFollow>().target = transform;
+        GameManager.Instance.PlayerCharacter = gameObject;
     }
 
     private void OnAttackInteract()
@@ -56,7 +56,7 @@ public class PlayerActions : NetworkBehaviour
             return;
         }
 
-        if (canInteract==true)
+        if (canInteract)
         {
             interactableObject.Interact(transform);
         }

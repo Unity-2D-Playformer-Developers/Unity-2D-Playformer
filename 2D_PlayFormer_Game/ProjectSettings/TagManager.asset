@@ -16,6 +16,7 @@ TagManager:
   - Slope
   - DestroyableGround
   - Pickup
+  - GameManager
   layers:
   - Default
   - TransparentFX

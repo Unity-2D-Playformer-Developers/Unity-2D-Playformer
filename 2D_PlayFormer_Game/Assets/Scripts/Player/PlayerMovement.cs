@@ -49,17 +49,25 @@ public class PlayerMovement : NetworkBehaviour
         rb2dDrag = rb2d.drag;
     }
 
+    //[Command]
     void OnMove(InputValue movementValue) // get player movement X axis: -1 -> going left; 1 -> going right; 0 -> no input
     {
-        if(isLocalPlayer)
+        print("player movement: on move: " + isLocalPlayer + " " + isServer + " " + isClient);
+        if (isLocalPlayer)
         {
-            Vector2 movementVector = movementValue.Get<Vector2>();
-            movementX = movementVector.x;
-            FlipPlayer();
+            Move(movementValue);
         }
     }
 
+    //[Command]
+    void Move(InputValue movementValue)
+    {
+        Vector2 movementVector = movementValue.Get<Vector2>();
+        movementX = movementVector.x;
+        FlipPlayer();
+    }
 
+    //[Command]
     void SetAnimationParameters()
     {
         animator.SetFloat("movementSpeedX", Mathf.Abs(movementX));
@@ -73,6 +81,7 @@ public class PlayerMovement : NetworkBehaviour
         animator.SetBool("isClimbing", isClimbing);
     }
 
+    //[Command]
     void FlipPlayer() // flip player sprite based on movement direction
     {
         if(movementX>0) // movement right
@@ -84,6 +93,8 @@ public class PlayerMovement : NetworkBehaviour
             sprite.flipX = true;           
         }
     }
+
+    //[Command]
     void RotatePlayer() 
     {
         if(isLocalPlayer)
@@ -102,6 +113,7 @@ public class PlayerMovement : NetworkBehaviour
 
     }
 
+    //[Command]
     void OnClimb(InputValue movementValue) // action to perform when climbing buttons are pressed
     {
         if(isLocalPlayer)
@@ -131,6 +143,7 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
+    //[Command]
     void OnJump() //action to perform when jump button is pressed
     {
         if(isLocalPlayer)
@@ -153,6 +166,7 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
+    //[Command]
     public void EnableClimbingMode(bool enable) 
     {
         if(isLocalPlayer)
@@ -173,6 +187,7 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
+    //[Command]
     private bool IsGrounded()
     {
         float extraHeight = 0.1f;
@@ -190,6 +205,7 @@ public class PlayerMovement : NetworkBehaviour
         return raycastHit.collider != null;
     }
 
+    //[Command]
     private void SlopeCheck()
     {
         RaycastHit2D raycastHit = Physics2D.Raycast(playerCollider.bounds.center, Vector2.down, playerCollider.bounds.extents.y + 0.5f, groundLayer);
@@ -214,37 +230,47 @@ public class PlayerMovement : NetworkBehaviour
     {
         if(isLocalPlayer)
         {
-            Vector2 movementLeftRightUpDown;
-            Vector2 slopeMovement;
-
-            SlopeCheck();
-            if (onSlope)
-            {
-                slopeMovement = new Vector2(-slopeRaycastNormal.x * slopeMovementSpeedMod, slopeRaycastNormal.y);
-                rb2d.AddForce(slopeMovement);
-            }
-            movementLeftRightUpDown = new Vector2(movementX * movementSpeed, movementY * climbingSpeed);
-            rb2d.AddForce(movementLeftRightUpDown);
-
-            if (IsGrounded())
-            {
-                isGrounded = true;
-                playerActions.JumpAttack(false);
-            }
-            else
-            {
-                isGrounded = false;
-            }
-
-            if (!isClimbing && !playerActions.IsPerformingJumpAttack)
-            {
-                rb2d.gravityScale = rb2dGravityScale;
-                rb2d.drag = rb2dDrag;
-            }
-
-
-            SetAnimationParameters();
+            up();
         }
+    }
+
+    [Command]
+    void up()
+    {
+        Vector2 movementLeftRightUpDown;
+        Vector2 slopeMovement;
+
+        SlopeCheck();
+        if (onSlope)
+        {
+            slopeMovement = new Vector2(-slopeRaycastNormal.x * slopeMovementSpeedMod, slopeRaycastNormal.y);
+            rb2d.AddForce(slopeMovement);
+        }
+        if(movementX != 0)
+        {
+            print("player movement: up: " + movementX);
+        }
+        movementLeftRightUpDown = new Vector2(movementX * movementSpeed, movementY * climbingSpeed);
+        rb2d.AddForce(movementLeftRightUpDown);
+
+        if (IsGrounded())
+        {
+            isGrounded = true;
+            playerActions.JumpAttack(false);
+        }
+        else
+        {
+            isGrounded = false;
+        }
+
+        if (!isClimbing && !playerActions.IsPerformingJumpAttack)
+        {
+            rb2d.gravityScale = rb2dGravityScale;
+            rb2d.drag = rb2dDrag;
+        }
+
+
+        SetAnimationParameters();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

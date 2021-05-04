@@ -11,6 +11,15 @@ public class GameManager : NetworkBehaviour
     [SerializeField]
     private GameObject playerCharacter;
 
+    public GameObject PlayerCharacter { get => playerCharacter;  
+        set { 
+            playerCharacter = value;
+            playerStats = playerCharacter.GetComponent<PlayerStats>();
+            playerRB = playerCharacter.GetComponent<Rigidbody2D>();
+            playerSprite = playerCharacter.GetComponent<SpriteRenderer>();
+        } 
+    }
+
     [SerializeField]
     private Camera mainCamera;
 
@@ -35,10 +44,12 @@ public class GameManager : NetworkBehaviour
             Destroy(gameObject);
         }
 
-
-        playerStats = playerCharacter.GetComponent<PlayerStats>();
-        playerRB = playerCharacter.GetComponent<Rigidbody2D>();
-        playerSprite = playerCharacter.GetComponent<SpriteRenderer>();
+        if(playerStats == null)
+        {
+            playerStats = playerCharacter.GetComponent<PlayerStats>();
+            playerRB = playerCharacter.GetComponent<Rigidbody2D>();
+            playerSprite = playerCharacter.GetComponent<SpriteRenderer>();
+        }
     }
 
     public void PickupCarrot(GameObject pickup)

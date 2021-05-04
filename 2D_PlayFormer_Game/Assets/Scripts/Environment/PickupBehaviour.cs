@@ -44,7 +44,7 @@ public class PickupBehaviour : NetworkBehaviour
 
     public void Pickup()
     {
-        Object pickupObject = this.gameObject;
+        Object pickupObject = gameObject;
         GameManager.Instance.SendMessage(pickupType, pickupObject);   
     }
 
