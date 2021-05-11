@@ -5001,6 +5001,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 995641235990368311}
+  - component: {fileID: -2352595134544690889}
   - component: {fileID: -6016238696981119831}
   - component: {fileID: 995641235990368310}
   - component: {fileID: 995641235990368306}
@@ -5034,6 +5035,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2352595134544690889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995641235990368309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef5b497eb497804a9221b5b7b0eecee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!114 &-6016238696981119831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5054,7 +5069,7 @@ MonoBehaviour:
   climbingSpeed: 10
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   isGrounded: 0
   isJumping: 0
 --- !u!50 &995641235990368310
@@ -5235,7 +5250,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   target: {fileID: 995641235990368310}
-  clientAuthority: 1
+  clientAuthority: 0
   syncVelocity: 1
   clearVelocity: 0
   velocitySensitivity: 0.1

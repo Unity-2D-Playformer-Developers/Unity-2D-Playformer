@@ -15,8 +15,10 @@ public class MPlayerMovement : NetworkBehaviour
 
     private Rigidbody2D playerRB;
     private CapsuleCollider2D playerCollider;
+    private SpriteRenderer sprite;
 
     private float inputX;
+    public float InputX { get => inputX; }
     private float inputY;
 
     public bool isGrounded;
@@ -26,6 +28,7 @@ public class MPlayerMovement : NetworkBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<CapsuleCollider2D>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     #region Input
@@ -53,9 +56,22 @@ public class MPlayerMovement : NetworkBehaviour
         if (this.isLocalPlayer)
         {
             MovePlayer();
+            GroundCheck();
+            FlipPlayer();
         }
     }
 
+    void FlipPlayer() // flip player sprite based on movement direction
+    {
+        if (inputX > 0) // movement right
+        {
+            sprite.flipX = false;
+        }
+        else if (inputX < 0) // movement left
+        {
+            sprite.flipX = true;
+        }
+    }
 
 
     #region Commands
