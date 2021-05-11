@@ -107,11 +107,6 @@ public class PlayerActions : NetworkBehaviour
         jumpAttackHitbox.enabled = true;
         rb2d.AddForce(new Vector2(0, -1*jumpAttackStrength), ForceMode2D.Impulse);
     }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-    }
     
 
     private void OnTriggerStay2D(Collider2D collision)

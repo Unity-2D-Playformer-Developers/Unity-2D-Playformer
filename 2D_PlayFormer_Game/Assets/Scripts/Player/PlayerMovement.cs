@@ -22,17 +22,24 @@ public class PlayerMovement : NetworkBehaviour
     private float rb2dGravityScale;
     private float rb2dDrag;
 
+    //[SyncVar]
     private float movementX; // used to determine player movement direction in X axis
+    //[SyncVar]
     private float movementY; // used to determine player movement direction in Y axis
     private Vector2 slopeRaycastNormal;
 
     private Vector3 movementDirection = new Vector3();
     private Quaternion rotation; // rotation of player around Z axis when walking on the slope
 
+    [SyncVar]
     private bool canClimb; // used to determine if player can enable climbing mode
+    [SyncVar]
     private bool isClimbing; // used to determine if player is currently climbing
+    [SyncVar]
     private bool isJumping; // used to determine if player is jumping
+    [SyncVar]
     private bool isGrounded; // used to determine if player is on the ground
+    [SyncVar]
     private bool onSlope; // used to determine if player is walking on slope
 
     public bool IsClimbing { get => isClimbing; }
@@ -72,7 +79,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         animator.SetFloat("movementSpeedX", Mathf.Abs(movementX));
         animator.SetFloat("movementSpeedY", Mathf.Abs(movementY));
-        if(isJumping==true)
+        if(isJumping)
         {
             animator.SetTrigger("jumpTrigger");
             isJumping = false; // player no longer considered jumping after animation starts
@@ -97,7 +104,7 @@ public class PlayerMovement : NetworkBehaviour
     //[Command]
     void RotatePlayer() 
     {
-        if(isLocalPlayer)
+        //if(isLocalPlayer)
         {
             if (onSlope)
             {
@@ -116,7 +123,7 @@ public class PlayerMovement : NetworkBehaviour
     //[Command]
     void OnClimb(InputValue movementValue) // action to perform when climbing buttons are pressed
     {
-        if(isLocalPlayer)
+        //if(isLocalPlayer)
         {
             if (isClimbing == true)
             {
@@ -146,7 +153,7 @@ public class PlayerMovement : NetworkBehaviour
     //[Command]
     void OnJump() //action to perform when jump button is pressed
     {
-        if(isLocalPlayer)
+        //if(isLocalPlayer)
         {
             if (isGrounded)
             {
@@ -230,13 +237,16 @@ public class PlayerMovement : NetworkBehaviour
     {
         if(isLocalPlayer)
         {
-            up();
+            print("player movement: fixed update: isLocalPlayer");
+            Up();
         }
+        SetAnimationParameters();
     }
 
     [Command]
-    void up()
+    void Up()
     {
+        print("player movement: up: entered");
         Vector2 movementLeftRightUpDown;
         Vector2 slopeMovement;
 
@@ -246,10 +256,7 @@ public class PlayerMovement : NetworkBehaviour
             slopeMovement = new Vector2(-slopeRaycastNormal.x * slopeMovementSpeedMod, slopeRaycastNormal.y);
             rb2d.AddForce(slopeMovement);
         }
-        if(movementX != 0)
-        {
-            print("player movement: up: " + movementX);
-        }
+        print("player movement: up: " + movementX + " " + movementY);
         movementLeftRightUpDown = new Vector2(movementX * movementSpeed, movementY * climbingSpeed);
         rb2d.AddForce(movementLeftRightUpDown);
 
@@ -268,14 +275,11 @@ public class PlayerMovement : NetworkBehaviour
             rb2d.gravityScale = rb2dGravityScale;
             rb2d.drag = rb2dDrag;
         }
-
-
-        SetAnimationParameters();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(isLocalPlayer)
+        //if(isLocalPlayer)
         {
             switch (collision.tag) //perform action based on trigger tag
             {
@@ -290,7 +294,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(isLocalPlayer)
+        //if(isLocalPlayer)
         {
             switch (collision.tag) //perform action based on trigger tag
             {
@@ -311,7 +315,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(isLocalPlayer)
+        //if(isLocalPlayer)
         {
             if (collision.collider.IsTouchingLayers(groundLayer))
             {

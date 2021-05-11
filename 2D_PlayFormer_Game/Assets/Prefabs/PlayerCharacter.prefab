@@ -5010,7 +5010,7 @@ GameObject:
   - component: {fileID: 995641235990368301}
   - component: {fileID: 995641235990368300}
   - component: {fileID: 1652479107011161489}
-  - component: {fileID: -7582630035004296260}
+  - component: {fileID: 6846819413987802917}
   m_Layer: 7
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -5108,6 +5108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284e3ac18d194b846bacaf75f559eb8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   PlayerMaxHealth: 5
   PlayerMaxAmmo: 5
 --- !u!114 &995641235990368305
@@ -5122,6 +5124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926c3be45ea7f74448ca0567000f349a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -5141,6 +5145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d173f05fcc8bcaf47a2d6de5b9e062fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   JumpAttackHitbox: {fileID: 995641234689964652}
   carrotProjectileSpawnPointRight: {fileID: 995641235184067587}
   carrotProjectileSpawnPointLeft: {fileID: 995641236106048210}
@@ -5251,7 +5257,7 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &-7582630035004296260
+--- !u!114 &6846819413987802917
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5260,15 +5266,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 995641235990368309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Script: {fileID: 11500000, guid: ab2cbc52526ea384ba280d13cd1a57b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
+  target: {fileID: 995641235990368310}
+  clientAuthority: 1
+  syncVelocity: 1
+  clearVelocity: 0
+  velocitySensitivity: 0.1
+  syncAngularVelocity: 1
+  clearAngularVelocity: 0
+  angularVelocitySensitivity: 0.1
 --- !u!1 &995641236106048209
 GameObject:
   m_ObjectHideFlags: 0
