@@ -9,7 +9,7 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "496600aa-c372-4c5d-bcd1-8fc5de498b15",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
                 },
@@ -42,7 +42,7 @@
                 {
                     "name": "LeftRight",
                     "id": "972b2420-b2d0-4ddd-af0f-46b4dc22e52b",
-                    "path": "2DVector",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -51,7 +51,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Left",
+                    "name": "Negative",
                     "id": "b5b9d670-0606-4b66-883b-4b37ec40e9ee",
                     "path": "<Keyboard>/a",
                     "interactions": "",
@@ -62,7 +62,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Right",
+                    "name": "Positive",
                     "id": "f9bf5640-1663-45a2-9624-535fca86507a",
                     "path": "<Keyboard>/d",
                     "interactions": "",
