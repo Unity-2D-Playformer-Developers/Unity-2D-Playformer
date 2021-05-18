@@ -143,5 +143,9 @@ public class PlayerActions : MonoBehaviour
         {
             jumpAttackParticle.Play();
         }
+        if(collision.collider.tag=="Ground")
+        {
+            JumpAttack(false);
+        }
     }
 }
