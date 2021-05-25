@@ -12,9 +12,7 @@ GameObject:
   - component: {fileID: 686595929639289810}
   - component: {fileID: 686595929639289823}
   - component: {fileID: 686595929639289808}
-  - component: {fileID: 686595929639289822}
   - component: {fileID: 8133997462792771772}
-  - component: {fileID: 4959245521881624799}
   - component: {fileID: 5231614774513319219}
   m_Layer: 13
   m_Name: EnemyPlant
@@ -133,24 +131,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &686595929639289822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 686595929639289800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac8c22a25e417cd4faa9d8e09d799a61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IdleVisionRange: 2
-  ChasingVisionRange: 2
-  MovementSpeed: 4
-  AttackDamage: 1
-  MaxHealth: 1
-  ChasesPlayer: 1
 --- !u!70 &8133997462792771772
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -167,22 +147,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.36775514}
   m_Size: {x: 7, y: 2.083029}
   m_Direction: 1
---- !u!58 &4959245521881624799
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 686595929639289800}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.022446314, y: -0.42400002}
-  serializedVersion: 2
-  m_Radius: 1.0563401
 --- !u!114 &5231614774513319219
 MonoBehaviour:
   m_ObjectHideFlags: 0

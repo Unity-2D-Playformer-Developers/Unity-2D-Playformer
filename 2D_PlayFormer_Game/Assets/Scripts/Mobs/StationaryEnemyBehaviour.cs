@@ -45,7 +45,7 @@ public class StationaryEnemyBehaviour : MonoBehaviour, IDamageable
     {
         if (damageableObject != null && playerInAttackRange)
         {
-            damageableObject.TakeDamage(2);
+            damageableObject.TakeDamage(AttackDamage);
             damageableObject.Knockback(transform.position, new Vector2(8f, 2f));
         }
         isAttacking = false;

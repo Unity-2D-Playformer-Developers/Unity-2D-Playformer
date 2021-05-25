@@ -73,7 +73,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
         }
     }
 
-    void Start()
+    void Awake()
     {
         aiPath = GetComponent<AIPath>();
         patrol = GetComponent<Patrol>();

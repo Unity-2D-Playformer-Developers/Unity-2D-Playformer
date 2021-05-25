@@ -9666,11 +9666,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyBee
       objectReference: {fileID: 0}
-    - target: {fileID: 686595929639289800, guid: 526c6469ac1bd96418d72d9a7c15b29d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 686595929639289809, guid: 526c6469ac1bd96418d72d9a7c15b29d,
         type: 3}
       propertyPath: m_RootOrder
@@ -9725,16 +9720,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 686595929639289811, guid: 526c6469ac1bd96418d72d9a7c15b29d,
-        type: 3}
-      propertyPath: m_Radius
-      value: 3.2459166
-      objectReference: {fileID: 0}
-    - target: {fileID: 686595929639289811, guid: 526c6469ac1bd96418d72d9a7c15b29d,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.06643613
       objectReference: {fileID: 0}
     - target: {fileID: 686595929639289814, guid: 526c6469ac1bd96418d72d9a7c15b29d,
         type: 3}
