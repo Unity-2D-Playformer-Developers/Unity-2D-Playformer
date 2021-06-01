@@ -206,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
         SlopeCheck();
         if (onSlope)
         {
-            slopeMovement = new Vector2(-slopeRaycastNormal.x * slopeMovementSpeedMod, slopeRaycastNormal.y);
+            slopeMovement = new Vector2(-slopeRaycastNormal.x * slopeMovementSpeedMod, slopeRaycastNormal.y*1.5f);
             rb2d.AddForce(slopeMovement);
         }
         movementLeftRightUpDown = new Vector2(movementX * movementSpeed, movementY * climbingSpeed);
