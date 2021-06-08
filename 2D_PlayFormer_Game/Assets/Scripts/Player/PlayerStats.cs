@@ -174,12 +174,13 @@ public class PlayerStats : MonoBehaviour, IDamageable
         playerCollider.enabled = false;
         rb2d.velocity = Vector2.zero;
         rb2d.AddForce(new Vector2(0f, 10f), ForceMode2D.Impulse);
-        Invoke("Destroy", 10f);
+        Invoke("Destroy", 2f);        
     }
 
     public void Destroy()
     {
         Destroy(this.gameObject);
+        GameManager.Instance.LevelRestart();
     }
 }
 
