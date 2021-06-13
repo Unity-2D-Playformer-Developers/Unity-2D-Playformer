@@ -91,6 +91,11 @@ public class GameManager : MonoBehaviour
         mainCamera.GetComponent<CameraFollow>().enabled = true;
     }
 
+    public void ToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public bool GetIsPlayerFacingLeft
     {
         get { return playerSprite.flipX; }
