@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-
+    
     #region UI
     public void UpdateAmunition(int carrotAmmunition, int maxAmmo)
     {
