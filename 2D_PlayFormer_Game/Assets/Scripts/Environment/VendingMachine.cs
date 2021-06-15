@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class defining behaviour of vending machines.
+/// </summary>
 public class VendingMachine : MonoBehaviour, IInteractable
 {
     [SerializeField]
@@ -23,6 +26,10 @@ public class VendingMachine : MonoBehaviour, IInteractable
         throw new System.NotImplementedException();
     }
 
+    /// <summary>
+    /// Method called when player interacts with vending machine. Spawns defined machine content, subtracts coins from player.
+    /// </summary>
+    /// <param name="playerPosition"></param>
     public void Interact(Transform playerPosition)
     {
 

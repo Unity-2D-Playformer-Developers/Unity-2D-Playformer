@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script managing camera movement.
+/// </summary>
 public class CameraFollow : MonoBehaviour
 {
 

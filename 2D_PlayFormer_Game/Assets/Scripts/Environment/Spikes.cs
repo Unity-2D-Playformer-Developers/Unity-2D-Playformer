@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class defining behaviour of spikes.
+/// </summary>
 public class Spikes : MonoBehaviour
 {
 
@@ -10,6 +13,9 @@ public class Spikes : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Deals damage to player when he collider with spikes.
+    /// </summary>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         IDamageable damageableObject = collision.collider.GetComponent<IDamageable>();

@@ -3,18 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
+/// <summary>
+/// Class managing enemy behaviour
+/// </summary>
 public class EnemyBehaviour : MonoBehaviour, IDamageable
 {
 
-    public float IdleVisionRange;
-    public float ChasingVisionRange;
+    public float IdleVisionRange; /// <summary>
+    /// range at which enemy detects player
+    /// </summary>
+    public float ChasingVisionRange;/// <summary>
+    /// range at which enemy sees player. if playher leaves this trigger, enemy goes back to patrol point.
+    /// </summary>
     public float MovementSpeed;
     public int AttackDamage;
     public float MaxHealth;
-    public bool ChasesPlayer;
+    public bool ChasesPlayer;/// <summary>
+    /// bool defining if enemy chases player
+    /// </summary>
 
     private float health;
     private bool isChasingPlayer;
+  
+        /// <summary>
+        /// component references
+        /// </summary>
     private AIPath aiPath;
     private Patrol patrol;
     private AIDestinationSetter destinationSetter;
@@ -24,6 +37,9 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     private SpriteRenderer sprite;
     private Rigidbody2D rb;
 
+    /// <summary>
+    /// method used to deal damage to enemy
+    /// </summary>
     public void TakeDamage(int damageAmount)
     {
         health -= damageAmount;
@@ -33,6 +49,9 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
         }
     }
 
+    /// <summary>
+    /// method that gets called after enemy HP is >=0.
+    /// </summary>
     void EnemyDeath()
     {
         patrol.enabled = false;
@@ -46,21 +65,25 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
 
         animator.SetBool("isDead", true);
     }
+
+    /// <summary>
+    /// method that gets called via animation event at the end of Death animation. Destroys enemy gameobject.
+    /// </summary>
     public void DeathAnimationFinished()
     {
         Destroy();
     }
+
 
     public void Destroy()
     {
         Destroy(this.gameObject);
     }
 
-    public void Knockback(Vector3 damagingObjectPosition, Vector2 knockbackForce)
-    {
-        throw new System.NotImplementedException();
-    }
 
+    /// <summary>
+    /// method for rotating sprite, depending on which X direction enemy moves at. 
+    /// </summary>
     void Rotate()
     {
         if(aiPath.desiredVelocity.x>0)
@@ -94,6 +117,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
         Rotate();
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player" && ChasesPlayer)
@@ -122,4 +146,13 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
         }
     }
 
+    /// <summary>
+    /// not used
+    /// </summary>
+    /// <param name="damagingObjectPosition"></param>
+    /// <param name="knockbackForce"></param>
+    public void Knockback(Vector3 damagingObjectPosition, Vector2 knockbackForce)
+    {
+        throw new System.NotImplementedException();
+    }
 }

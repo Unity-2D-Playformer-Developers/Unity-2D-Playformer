@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class managing enemy behaviour/
+/// </summary>
 public class StationaryEnemyBehaviour : MonoBehaviour, IDamageable
 {
     public int AttackDamage;
@@ -31,6 +34,10 @@ public class StationaryEnemyBehaviour : MonoBehaviour, IDamageable
         
     }
 
+    /// <summary>
+    /// triggers attack after players enters view range
+    /// </summary>
+    /// <returns></returns>
     IEnumerator PrepareAttack()
     {
         yield return new WaitForSeconds(AttackDelay);
@@ -41,6 +48,9 @@ public class StationaryEnemyBehaviour : MonoBehaviour, IDamageable
         yield return 0;
     }
 
+    /// <summary>
+    /// checks if player is in range - delas damage if true.
+    /// </summary>
     public void Attack()
     {
         if (damageableObject != null && playerInAttackRange)

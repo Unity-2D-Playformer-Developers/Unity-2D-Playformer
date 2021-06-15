@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class defining behaviour of background.
+/// </summary>
 public class ParallaxBG : MonoBehaviour
 {
     public Vector2 parallaxEffectMultipler;
@@ -21,7 +24,9 @@ public class ParallaxBG : MonoBehaviour
         textureUnitSizeY = texture.height / sprite.pixelsPerUnit;
     }
 
-
+    /// <summary>
+    /// Mathod managing movement of background. 
+    /// </summary>
     void FixedUpdate()
     {
         Vector3 deltaMovement = cameraTransform.position - lastCameraPosition;

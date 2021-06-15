@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// class defining behaviour of projectiles spawned when player uses ranged attack.
+/// </summary>
 public class CarrotProjectile : MonoBehaviour
 {
 
     public int ProjectileDamage = 10;
     public int ProjectileThrowStrength = 10;
+
+    /// <summary>
+    /// components references
+    /// </summary>
     private Rigidbody2D rb2d;
     private SpriteRenderer sprite;
     private ParticleSystem destroyParticle;
@@ -36,6 +43,9 @@ public class CarrotProjectile : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// method checking if projectile collided with damageable object
+    /// </summary>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.GetComponent<IDamageable>() != null)
@@ -45,6 +55,10 @@ public class CarrotProjectile : MonoBehaviour
         StartCoroutine(DestroyEffect());
     }
 
+    /// <summary>
+    /// method for spawning particles, after projectiles collides with something
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DestroyEffect()
     {
         carrotCollider.enabled = false;

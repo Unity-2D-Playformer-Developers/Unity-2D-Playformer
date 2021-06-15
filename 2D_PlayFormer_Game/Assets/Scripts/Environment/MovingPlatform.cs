@@ -2,16 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class deifning behaviour of moving platforms.
+/// </summary>
 public class MovingPlatform : MonoBehaviour
 {
     public float MovementSpeed;
+    
+    /// <summary>
+    /// Platform moves between point A and B
+    /// </summary>
     public Transform PointA;
     public Transform PointB;
-
     private Vector3 pointA;
     private Vector3 pointB;
-    private Vector3 nextPosition;
-    private Vector3 startPosition;
+
+    private Vector3 nextPosition;/// <summary>
+    private Vector3 startPosition;/// <summary>
     private Rigidbody2D rb;
 
 
@@ -27,6 +34,9 @@ public class MovingPlatform : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Method managing platform movement.
+    /// </summary>
     private void FixedUpdate()
     {
         if (transform.position.x <= pointA.x)
@@ -48,6 +58,9 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Platform becomes player transform parent when he collides with it.
+    /// </summary>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.collider.tag=="Player")

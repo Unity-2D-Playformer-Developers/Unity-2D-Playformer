@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class defining openable chests.
+/// </summary>
+
 public class ChestBehaviour : MonoBehaviour, IInteractable
 {
     public GameObject ChestContent;
@@ -22,6 +26,11 @@ public class ChestBehaviour : MonoBehaviour, IInteractable
         pickupBehaviour = ChestContent.GetComponent<PickupBehaviour>();
     }
 
+
+    /// <summary>
+    /// Method called when player interacts with chest.
+    /// </summary>
+    /// <param name="playerPosition">Position on player. Determines direction in which spawned pickups will be thrown.</param>
     public void Interact(Transform playerPosition)
     {
         if (chestClosed)
@@ -35,9 +44,12 @@ public class ChestBehaviour : MonoBehaviour, IInteractable
 
     public void AutoInteract()
     {
-        //
+        //not used
     }
 
+    /// <summary>
+    /// Method used for spawning chest content. It can spawn random or defined amounts.
+    /// </summary>
     void SpawnContent()
     {
         int spawnAmount;
@@ -59,7 +71,10 @@ public class ChestBehaviour : MonoBehaviour, IInteractable
         }
 
     }
-
+    
+    /// <summary>
+    /// Replaces sprite of closed chest with sprite of opened chest.,
+    /// </summary>
    void ReplaceSprite()
     {
         SpriteRenderer.sprite = OpenedChestSprite;

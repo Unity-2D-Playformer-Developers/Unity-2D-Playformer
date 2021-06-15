@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    /// <summary>
+    /// Class responsible for managing player movement - detects slopes, climping triggers, groundchecks, etc.
+    /// </summary>
+
     [SerializeField] private LayerMask groundLayer;
 
     public float movementSpeed = 10;
@@ -12,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 5;
     public float climbingSpeed = 10;
 
+    /// <summary>
+    /// component references
+    /// </summary>
     private Rigidbody2D rb2d;
     private Animator animator;
     private CapsuleCollider2D playerCollider;
@@ -48,14 +55,20 @@ public class PlayerMovement : MonoBehaviour
         rb2dDrag = rb2d.drag;
     }
 
-    void OnMove(InputValue movementValue) // get player movement X axis: -1 -> going left; 1 -> going right; 0 -> no input
+    /// <summary>
+    /// get player movement X axis: -1 -> going left; 1 -> going right; 0 -> no input
+    /// </summary>
+    /// <param name="movementValue"></param>
+    void OnMove(InputValue movementValue)
     {        
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
         FlipPlayer();
     }
 
-
+    /// <summary>
+    /// method responsible for animating player
+    /// </summary>
     void SetAnimationParameters()
     {
         animator.SetFloat("movementSpeedX", Mathf.Abs(movementX));
@@ -69,7 +82,10 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isClimbing", isClimbing);
     }
 
-    void FlipPlayer() // flip player sprite based on movement direction
+    /// <summary>
+    /// flip player sprite based on movement direction
+    /// </summary>
+    void FlipPlayer() 
     {
         if(movementX>0) // movement right
         {
@@ -80,6 +96,10 @@ public class PlayerMovement : MonoBehaviour
             sprite.flipX = true;           
         }
     }
+
+    /// <summary>
+    /// rotates sprite, when players walks on slope
+    /// </summary>
     void RotatePlayer() 
     {
         if (onSlope)
@@ -95,7 +115,11 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    void OnClimb(InputValue movementValue) // action to perform when climbing buttons are pressed
+    /// <summary>
+    /// action to perform when climbing buttons are pressed
+    /// </summary>
+    /// <param name="movementValue"></param>
+    void OnClimb(InputValue movementValue)
     {
         if (isClimbing == true)
         {
@@ -121,7 +145,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnJump() //action to perform when jump button is pressed
+    /// <summary>
+    /// action to perform when jump button is pressed
+    /// </summary>
+    void OnJump()
     {
         if (isGrounded==true)
         {
@@ -140,6 +167,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// enables/disables climbing mode, sets up movement values
+    /// </summary>
+    /// <param name="enable"></param>
     public void EnableClimbingMode(bool enable) 
     {
         if (enable == true && isClimbing == false && canClimb==true)
@@ -157,6 +188,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// checks using boxcast if player is on the ground
+    /// </summary>
+    /// <returns>grounded bool value</returns>
     private bool IsGrounded()
     {
         float extraHeight = 0.1f;
@@ -174,6 +209,9 @@ public class PlayerMovement : MonoBehaviour
         return raycastHit.collider != null;
     }
 
+    /// <summary>
+    /// checks using raycast and raycast normal if player is on the slope
+    /// </summary>
     private void SlopeCheck()
     {
         RaycastHit2D raycastHit = Physics2D.Raycast(playerCollider.bounds.center, Vector2.down, playerCollider.bounds.extents.y + 0.5f, groundLayer);
@@ -198,6 +236,9 @@ public class PlayerMovement : MonoBehaviour
     {
     }
 
+    /// <summary>
+    /// updates movement and animations
+    /// </summary>
     void FixedUpdate()
     {
         Vector2 movementLeftRightUpDown;
@@ -268,19 +309,6 @@ public class PlayerMovement : MonoBehaviour
         if(collision.collider.IsTouchingLayers(groundLayer))
         {
             isJumping = false;
-        }
-
-        switch (collision.collider.tag) //perform action based on collider tag
-        {
-            //
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        switch (collision.collider.tag) //perform action based on collider tag
-        {
-            //
         }
     }
 

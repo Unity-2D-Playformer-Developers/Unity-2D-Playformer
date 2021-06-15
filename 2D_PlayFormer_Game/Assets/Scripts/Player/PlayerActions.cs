@@ -3,20 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Class defining player actions such as interactions with obejcts and attacks.
+/// </summary>
 public class PlayerActions : MonoBehaviour
 {
+    /// <summary>
+    /// area that can damage objects during jump attack
+    /// </summary>
     [SerializeField]private GameObject JumpAttackHitbox;
+
+    /// <summary>
+    /// place where projectile is spawned
+    /// </summary>
     [SerializeField]private Transform carrotProjectileSpawnPointRight;
     [SerializeField] private Transform carrotProjectileSpawnPointLeft;
+
     [SerializeField]private GameObject carrotProjectilePrefab;
+
     public int jumpAttackStrength = 15;
     public int jumpAttackDmg = 5;
-   
-    private CapsuleCollider2D jumpAttackHitbox;
+    
     private bool canInteract;
-    private string interactionTriggerName;   
+
+    /// <summary>
+    /// component references
+    /// </summary>
+    private CapsuleCollider2D jumpAttackHitbox;  
     private IInteractable interactableObject;
-    private GameObject playerCharacter;
     private Rigidbody2D rb2d;
     private PlayerStats playerStats;
     private PlayerMovement playerMovement;
@@ -41,7 +55,9 @@ public class PlayerActions : MonoBehaviour
     }
 
     
-
+    /// <summary>
+    /// method managing action to perform when attack/interact button is pressed
+    /// </summary>
     private void OnAttackInteract()
     {
         Debug.Log("attack button press");
@@ -65,6 +81,9 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// method for spawning carrot projectile from correnct points, depending on direction player is facing
+    /// </summary>
     void ThrowCarrotAttack()
     {
         if (GameManager.Instance.GetIsPlayerFacingLeft == true) 
@@ -78,6 +97,10 @@ public class PlayerActions : MonoBehaviour
        
     }
 
+    /// <summary>
+    /// method for triggering and canceling jump attack
+    /// </summary>
+    /// <param name="performJumpAttack">bool for deciding if jump attack should be performed or cancelled</param>
     public void JumpAttack(bool performJumpAttack)
     {
         if (performJumpAttack && !isPerformingJumpAttack)
@@ -96,6 +119,10 @@ public class PlayerActions : MonoBehaviour
             animator.SetBool("jumpAttack", isPerformingJumpAttack);
         }
     }
+
+    /// <summary>
+    /// method for performing jump attack. Gets called via animation event, at the end of "Spin" animation.
+    /// </summary>
     public void JumpAttackPerform()
     {
         rb2d.gravityScale = rb2dGravcity;
@@ -103,11 +130,6 @@ public class PlayerActions : MonoBehaviour
         rb2d.AddForce(new Vector2(0, -1*jumpAttackStrength), ForceMode2D.Impulse);
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-    }
-    
 
     private void OnTriggerStay2D(Collider2D collision)
     {
