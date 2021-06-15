@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         bool pickupSuccessfull = playerStats.AddCoins(1);
         if (pickupSuccessfull)
         {
-            playerStats.AddScore(1);
+            playerStats.AddScore(100);
             Destroy(pickup);
         }
     }

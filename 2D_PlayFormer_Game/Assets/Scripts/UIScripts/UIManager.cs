@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateCoins(int coins)
     {
-        Coins.text = "" + coins;
+        Coins.text =  coins.ToString();
     }
     public void UpdateHealth(int health, int NumberOfHearts)
     {

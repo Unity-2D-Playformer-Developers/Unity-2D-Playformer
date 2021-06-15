@@ -15,10 +15,10 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private PlayerMovement playerMovement;
     private Animator animator;
 
-    private int health;
-    private int ammoAmount;
-    private int scoreAmount;
-    private int coinsAmount;
+    private int health=0;
+    private int ammoAmount=0;
+    private int scoreAmount=0;
+    private int coinsAmount=0;
 
     private bool canReceiveDamage=true;
     private bool receivedDamage=false;
@@ -43,19 +43,33 @@ public class PlayerStats : MonoBehaviour, IDamageable
             }
         }
     }
-     
+    
+    public void LoadStats(int Ahealth,int ammo, int score,int coins)
+    {
+        health = Ahealth;
+        ammoAmount = ammo;
+        coinsAmount = coins;
+
+        
+
+
+         Debug.Log(health);
+        Debug.Log(ammoAmount);
+        Debug.Log(coinsAmount);
+        UIManager.Instance.UpdateCoins(coinsAmount);
+        UIManager.Instance.UpdateAmunition(ammoAmount, PlayerMaxAmmo);
+        UIManager.Instance.UpdateHealth(health, PlayerMaxHealth);
+        UIManager.Instance.UpdateScore(score);
+
+    }
     void Start()
     {
 
         health = PlayerMaxHealth;
-        ammoAmount = 0;
-
-
-        coinsAmount = 0;
-        UIManager.Instance.UpdateScore(coinsAmount);
+        UIManager.Instance.UpdateCoins(coinsAmount);
         UIManager.Instance.UpdateAmunition(ammoAmount, PlayerMaxAmmo);
         UIManager.Instance.UpdateHealth(health, PlayerMaxHealth);
-
+        UIManager.Instance.UpdateScore(0);
         playerSprite = GetComponent<SpriteRenderer>();
         playerInput = GetComponent<PlayerInput>();
         playerCollider = GetComponent<Collider2D>();
