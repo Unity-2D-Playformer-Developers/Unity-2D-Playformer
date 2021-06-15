@@ -15,7 +15,9 @@ public class OpenScreen : MonoBehaviour
     {
       
            SceneManager.LoadScene(1);
-        level= SceneManager.GetActiveScene().buildIndex;
+        SceneManager.sceneLoaded += StartNewGame;
+        level = SceneManager.GetActiveScene().buildIndex;
+       
 
     }
 
@@ -39,23 +41,29 @@ public class OpenScreen : MonoBehaviour
 
     public void LoadGame()
     {
-        
-        
+
+
         PlayerData data = SaveLoadSystem.LoadPlayer();
         playerData = data;
         level = data.Level;
-        GameManager.Instance.PlayerStats.LoadStats(data.health, data.ammo, data.score, data.coinsammoun);
+        
         SceneManager.LoadScene(level);
         SceneManager.sceneLoaded += OnSceneLoaded;
         
+       
     }
-
+    void StartNewGame(Scene scene, LoadSceneMode mode)
+    {
+        
+        GameManager.Instance.PlayerStats.LoadStats(5, 0, 0, 0);
+    }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        PlayerData data = SaveLoadSystem.LoadPlayer();
         Debug.Log("OnSceneLoaded: " + scene.name);
         Transform kek = GameObject.FindGameObjectsWithTag("Player")[1].transform;
         kek.position = new Vector2(playerData.x, playerData.y);
-
+        GameManager.Instance.PlayerStats.LoadStats(data.health, data.ammo, data.score, data.coinsammoun);
         SavedEnemy[] savedEnemies = new SavedEnemy[playerData.enemiesNames.Length];
         SavedCoins[] savedCoins= new SavedCoins[playerData.coinNames.Length];
 

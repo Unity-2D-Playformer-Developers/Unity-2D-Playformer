@@ -49,8 +49,9 @@ public class PlayerStats : MonoBehaviour, IDamageable
         health = Ahealth;
         ammoAmount = ammo;
         coinsAmount = coins;
+        scoreAmount = score;
 
-        
+
 
 
          Debug.Log(health);
@@ -59,17 +60,13 @@ public class PlayerStats : MonoBehaviour, IDamageable
         UIManager.Instance.UpdateCoins(coinsAmount);
         UIManager.Instance.UpdateAmunition(ammoAmount, PlayerMaxAmmo);
         UIManager.Instance.UpdateHealth(health, PlayerMaxHealth);
-        UIManager.Instance.UpdateScore(score);
+        UIManager.Instance.UpdateScore(scoreAmount);
 
     }
     void Start()
     {
 
-        health = PlayerMaxHealth;
-        UIManager.Instance.UpdateCoins(coinsAmount);
-        UIManager.Instance.UpdateAmunition(ammoAmount, PlayerMaxAmmo);
-        UIManager.Instance.UpdateHealth(health, PlayerMaxHealth);
-        UIManager.Instance.UpdateScore(0);
+        
         playerSprite = GetComponent<SpriteRenderer>();
         playerInput = GetComponent<PlayerInput>();
         playerCollider = GetComponent<Collider2D>();
