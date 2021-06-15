@@ -17,6 +17,8 @@ TagManager:
   - DestroyableGround
   - Pickup
   - Enemy
+  - Chest
+  - Door
   layers:
   - Default
   - TransparentFX

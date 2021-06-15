@@ -15,7 +15,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
     private PlayerMovement playerMovement;
     private Animator animator;
 
-    private int health=0;
+    private int health=5;
     private int ammoAmount=0;
     private int scoreAmount=0;
     private int coinsAmount=0;
@@ -53,8 +53,7 @@ public class PlayerStats : MonoBehaviour, IDamageable
 
 
 
-
-         Debug.Log(health);
+        Debug.Log(health);
         Debug.Log(ammoAmount);
         Debug.Log(coinsAmount);
         UIManager.Instance.UpdateCoins(coinsAmount);
@@ -73,6 +72,8 @@ public class PlayerStats : MonoBehaviour, IDamageable
         playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
+
+        UIManager.Instance.UpdateAmunition(ammoAmount, PlayerMaxAmmo);
     }
 
     public bool AddAmmo(int amount)

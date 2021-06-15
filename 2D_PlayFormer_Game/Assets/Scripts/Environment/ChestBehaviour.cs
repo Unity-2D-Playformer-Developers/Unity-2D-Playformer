@@ -13,7 +13,7 @@ public class ChestBehaviour : MonoBehaviour, IInteractable
     public Sprite OpenedChestSprite;
     
 
-    private bool chestClosed=true;
+    public bool chestClosed=true;
     private PickupBehaviour pickupBehaviour;
 
 
@@ -45,7 +45,7 @@ public class ChestBehaviour : MonoBehaviour, IInteractable
 
         if (ContentRandomAmount)
         {
-            spawnAmount=Random.Range(1, ContentMaxAmount);
+            spawnAmount = Random.Range(1, ContentMaxAmount);
         }
         else
         {
@@ -60,7 +60,7 @@ public class ChestBehaviour : MonoBehaviour, IInteractable
 
     }
 
-   void ReplaceSprite()
+    public void ReplaceSprite()
     {
         SpriteRenderer.sprite = OpenedChestSprite;
     }

@@ -13,8 +13,7 @@ public class OpenScreen : MonoBehaviour
     
     public void StartGame()
     {
-      
-           SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1);
         SceneManager.sceneLoaded += StartNewGame;
         level = SceneManager.GetActiveScene().buildIndex;
        
@@ -64,60 +63,68 @@ public class OpenScreen : MonoBehaviour
         Transform kek = GameObject.FindGameObjectsWithTag("Player")[1].transform;
         kek.position = new Vector2(playerData.x, playerData.y);
         GameManager.Instance.PlayerStats.LoadStats(data.health, data.ammo, data.score, data.coinsammoun);
-        SavedEnemy[] savedEnemies = new SavedEnemy[playerData.enemiesNames.Length];
-        SavedCoins[] savedCoins= new SavedCoins[playerData.coinNames.Length];
+
+        LoadSavedDataIntoGameObjects(playerData.enemiesNames, playerData.enemiesX, 
+                                                              playerData.enemiesY, 
+                                                              playerData.enemiesZ, 
+                                                              GameObject.FindGameObjectsWithTag("Enemy"));
+
+        LoadSavedDataIntoGameObjects(playerData.coinNames, playerData.coinX,
+                                                              playerData.coinY,
+                                                              playerData.coinZ,
+                                                              GameObject.FindGameObjectsWithTag("PickupCoin"));
+
+        LoadSavedDataIntoGameObjects(playerData.destroyableNames, playerData.destroyableX,
+                                                              playerData.destroyableY,
+                                                              playerData.destroyableZ,
+                                                              GameObject.FindGameObjectsWithTag("DestroyableGround"));
+
+        GameObject[] chests = GameObject.FindGameObjectsWithTag("Chest");
+
+        for (int i = 0; i < chests.Length; ++i)
+        {
+            if (!playerData.chestOpened[i])
+            {
+                chests[i].GetComponent<ChestBehaviour>().chestClosed = false;
+                chests[i].GetComponent<ChestBehaviour>().ReplaceSprite();
+            }
+        }
+
+        //LoadSavedDataIntoGameObjects(playerData.chestsNames, playerData.chestsX,
+        //playerData.chestsY,
+        //playerData.chestsZ,
+        //GameObject.FindGameObjectsWithTag("Chest"));
+    }
+
+    void LoadSavedDataIntoGameObjects(string[] names, float[] x, float[] y, float[] z, GameObject[] gameObjects)
+    {
+        NameAndXYZ[] saved = new NameAndXYZ[names.Length];
 
         int i;
+
+        for (i = 0; i < names.Length; ++i)
+        {
+            saved[i] = new NameAndXYZ();
+            saved[i].name = names[i];
+            saved[i].x = x[i];
+            saved[i].y = y[i];
+            saved[i].z = z[i];
+        }
+
+        Array.Sort(gameObjects, compareObjects);
+        Array.Sort(saved);
+
         int j = 0;
-        int jj = 0;
-
-        for (i = 0; i < playerData.enemiesNames.Length; ++i)
+        for (i = 0; i < names.Length; ++i, ++j)
         {
-            savedEnemies[i] = new SavedEnemy();
-            savedEnemies[i].enemyName = playerData.enemiesNames[i];
-            savedEnemies[i].enemyX = playerData.enemiesX[i];
-            savedEnemies[i].enemyY = playerData.enemiesY[i];
-            savedEnemies[i].enemyZ = playerData.enemiesZ[i];
-        }
-        for (i = 0; i < playerData.coinNames.Length; ++i)
-        {
-            savedCoins[i] = new SavedCoins();
-            savedCoins[i].coinsName = playerData.coinNames[i];
-            savedCoins[i].coinX = playerData.coinX[i];
-            savedCoins[i].coinY = playerData.coinY[i];
-            savedCoins[i].coinZ = playerData.coinZ[i];
-        }
-
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        Array.Sort(enemies, compareObjects);
-        Array.Sort(savedEnemies);
-
-        GameObject[] coins = GameObject.FindGameObjectsWithTag("PickupCoin");
-        Array.Sort(coins, compareObjects);
-        Array.Sort(savedCoins);
-
-        for (i = 0; i < playerData.enemiesNames.Length; ++i, ++j)
-        {
-            if(enemies[j].name != savedEnemies[i].enemyName)
+            if (gameObjects[j].name != saved[i].name)
             {
-                Destroy(enemies[j].gameObject);
+                Destroy(gameObjects[j].gameObject);
                 --i;
                 continue;
             }
-            enemies[j].transform.position = new Vector3(savedEnemies[i].enemyX, savedEnemies[i].enemyY, savedEnemies[i].enemyZ);
+            gameObjects[j].transform.position = new Vector3(saved[i].x, saved[i].y, saved[i].z);
         }
-
-        for (i = 0; i < playerData.coinNames.Length; ++i, ++jj)
-        {
-            if (coins[jj].name != savedCoins[i].coinsName)
-            {
-                Destroy(coins[jj].gameObject);
-                --i;
-                continue;
-            }
-            coins[jj].transform.position = new Vector3(savedCoins[i].coinX, savedCoins[i].coinY, savedCoins[i].coinZ);
-        }
-
     }
 
     public int compareObjects(GameObject a, GameObject b)
@@ -125,31 +132,17 @@ public class OpenScreen : MonoBehaviour
         return a.name.CompareTo(b.name);
     }
 
-    class SavedEnemy : IComparable
+    class NameAndXYZ : IComparable
     {
-        public string enemyName;
-        public float enemyX;
-        public float enemyY;
-        public float enemyZ;
+        public string name;
+        public float x;
+        public float y;
+        public float z;
 
         public int CompareTo(object obj)
         {
-            SavedEnemy o = (SavedEnemy)obj;
-            return enemyName.CompareTo(o.enemyName);
-        }
-    }
-
-    class SavedCoins : IComparable
-    {
-        public string coinsName;
-        public float coinX;
-        public float coinY;
-        public float coinZ;
-
-        public int CompareTo(object obj)
-        {
-            SavedCoins o = (SavedCoins)obj;
-            return coinsName.CompareTo(o.coinsName);
+            NameAndXYZ o = (NameAndXYZ)obj;
+            return name.CompareTo(o.name);
         }
     }
 
