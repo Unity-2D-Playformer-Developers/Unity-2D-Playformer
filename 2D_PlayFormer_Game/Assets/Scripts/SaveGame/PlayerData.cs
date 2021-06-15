@@ -6,9 +6,14 @@ public class PlayerData
 {
     public int Level;
 
-        public PlayerData(OpenScreen player)
+    public float x, y;
+
+        public PlayerData(OpenScreen openScreen)
     {
-        Level = player.Scene();
+        Level = openScreen.Scene();
+        GameObject player = GameObject.FindGameObjectsWithTag("Player")[1];
+        x = player.transform.position.x;
+        y = player.transform.position.y;
     }
     
 }

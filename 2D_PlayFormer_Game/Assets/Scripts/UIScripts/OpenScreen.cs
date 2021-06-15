@@ -29,10 +29,23 @@ public class OpenScreen : MonoBehaviour
     {
         SaveLoadSystem.SavePlayer(this);
     }
+
+    PlayerData playerData;
+
     public void LoadGame()
     {
         PlayerData data = SaveLoadSystem.LoadPlayer();
+        playerData = data;
         level = data.Level;
         SceneManager.LoadScene(level);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnSceneLoaded: " + scene.name);
+        Transform kek = GameObject.FindGameObjectsWithTag("Player")[1].transform;
+        kek.position = new Vector2(playerData.x, playerData.y);
+    }
+
 }
