@@ -16,6 +16,7 @@ TagManager:
   - Slope
   - DestroyableGround
   - Pickup
+  - Enemy
   layers:
   - Default
   - TransparentFX
