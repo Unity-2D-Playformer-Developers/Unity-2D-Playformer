@@ -51,6 +51,7 @@ public class PlayerData
         GameObject[] destroyable = GameObject.FindGameObjectsWithTag("DestroyableGround");
         GameObject[] chests = GameObject.FindGameObjectsWithTag("Chest");
         GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
+        GameObject[] doorsControls = GameObject.FindGameObjectsWithTag("DoorsControl");
 
         saveObjectsNamesAndPositions(enemies, ref enemiesNames, ref enemiesX, ref enemiesY, ref enemiesZ);
         saveObjectsNamesAndPositionsWithoutPhysics(coins, ref coinNames, ref coinX, ref coinY, ref coinZ);
@@ -58,7 +59,7 @@ public class PlayerData
         //saveObjectsNamesAndPositions(chests, ref chestsNames, ref chestsX, ref chestsY, ref chestsZ);
 
         saveOpenedChests(chests, ref chestsNames, ref chestOpened);
-        saveOpenedDoors(doors, ref doorNames, ref doorOpened);
+        saveOpenedDoors(doors, ref doorNames, ref doorOpened, doorsControls);
         
         x = player.transform.position.x;
         y = player.transform.position.y;
@@ -75,7 +76,7 @@ public class PlayerData
         }
     }
 
-    void saveOpenedDoors(GameObject[] gameObjects, ref string[] names, ref bool[] opened)
+    void saveOpenedDoors(GameObject[] gameObjects, ref string[] names, ref bool[] opened, GameObject[] controls)
     {
         names = new string[gameObjects.Length];
         opened = new bool[gameObjects.Length];
@@ -83,7 +84,7 @@ public class PlayerData
         {
             names[i] = gameObjects[i].name;
             // TODO: opened doors
-            // opened[i] = !gameObjects[i].GetComponent<>().chestClosed;
+            opened[i] = gameObjects[i].GetComponent<SpriteRenderer>().sprite == controls[i].GetComponent<Doors>().OpenedDoorsSprite;
         }
     }
 

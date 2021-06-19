@@ -11,6 +11,14 @@ public class Doors : MonoBehaviour, IInteractable
     [SerializeField]
     private Sprite openedDoorsSprite;
 
+    public Sprite OpenedDoorsSprite
+    {
+        get
+        {
+            return openedDoorsSprite;
+        }
+    }
+
     private Animator animator;
 
     private BoxCollider2D doorsCollider;
@@ -27,13 +35,23 @@ public class Doors : MonoBehaviour, IInteractable
         if(GameManager.Instance.PlayerStats.GetCoinsAmount>=price)
         {
             GameManager.Instance.SpendCoin(price);
-            animator.SetBool("DoorOpen", true);
-            doorsCollider.enabled = false;
-            doorsSpriteRenderer.sprite = openedDoorsSprite;
+            Open();
         }
     }
 
-    void Start()
+    public void Open()
+    {
+        animator.SetBool("DoorOpen", true);
+        doorsCollider.enabled = false;
+        doorsSpriteRenderer.sprite = openedDoorsSprite;
+    }
+
+    public bool IsOpened()
+    {
+        return animator.GetBool("DoorOpen");
+    }
+
+    public void Start()
     {
         doorsCollider = doors.GetComponent<BoxCollider2D>();
         doorsSpriteRenderer= doors.GetComponent<SpriteRenderer>();

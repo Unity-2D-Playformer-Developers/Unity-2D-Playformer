@@ -56,6 +56,7 @@ public class OpenScreen : MonoBehaviour
         
         GameManager.Instance.PlayerStats.LoadStats(5, 0, 0, 0);
     }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlayerData data = SaveLoadSystem.LoadPlayer();
@@ -83,10 +84,23 @@ public class OpenScreen : MonoBehaviour
 
         for (int i = 0; i < chests.Length; ++i)
         {
-            if (!playerData.chestOpened[i])
+            if (playerData.chestOpened[i])
             {
                 chests[i].GetComponent<ChestBehaviour>().chestClosed = false;
                 chests[i].GetComponent<ChestBehaviour>().ReplaceSprite();
+            }
+        }
+
+        GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
+        GameObject[] doorsContol = GameObject.FindGameObjectsWithTag("DoorsControl");
+
+        for (int i = 0; i < doors.Length; i++)
+        {
+            if(playerData.doorOpened[i])
+            {
+                doorsContol[i].GetComponent<Doors>().Start();
+                doorsContol[i].GetComponent<Doors>().Open();
+                // doors[i].GetComponent<SpriteRenderer>().sprite = openedDoorsSprite;
             }
         }
 
@@ -95,6 +109,8 @@ public class OpenScreen : MonoBehaviour
         //playerData.chestsZ,
         //GameObject.FindGameObjectsWithTag("Chest"));
     }
+
+    public Sprite openedDoorsSprite;
 
     void LoadSavedDataIntoGameObjects(string[] names, float[] x, float[] y, float[] z, GameObject[] gameObjects)
     {
