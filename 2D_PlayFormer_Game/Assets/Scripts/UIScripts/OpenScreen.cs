@@ -48,13 +48,16 @@ public class OpenScreen : MonoBehaviour
         
         SceneManager.LoadScene(level);
         SceneManager.sceneLoaded += OnSceneLoaded;
-        
-       
     }
     void StartNewGame(Scene scene, LoadSceneMode mode)
     {
-        
+        // GameManager.Instance.LevelRestart();
         GameManager.Instance.PlayerStats.LoadStats(5, 0, 0, 0);
+
+        Transform kek = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        var shmek = GameObject.FindGameObjectsWithTag("Player")[1].transform.position;
+        kek.position = new Vector3(-21.88f - shmek.x, 1.92f - shmek.y, -13.08451f - shmek.z);
+        //kek.position = new Vector3(0, 0, 0);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
