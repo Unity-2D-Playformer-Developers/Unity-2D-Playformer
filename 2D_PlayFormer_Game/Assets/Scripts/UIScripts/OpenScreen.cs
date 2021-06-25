@@ -111,6 +111,7 @@ public class OpenScreen : MonoBehaviour
         //playerData.chestsY,
         //playerData.chestsZ,
         //GameObject.FindGameObjectsWithTag("Chest"));
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public Sprite openedDoorsSprite;

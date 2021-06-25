@@ -9,6 +9,7 @@ public class FullscreenMode : MonoBehaviour
 
     void Start()
     {
+        toggle.isOn = Screen.fullScreen;
         toggle.onValueChanged.AddListener(delegate
         {
             Screen.fullScreen = !Screen.fullScreen;
