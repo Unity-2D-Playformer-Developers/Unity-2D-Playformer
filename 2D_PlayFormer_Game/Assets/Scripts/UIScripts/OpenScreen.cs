@@ -147,6 +147,11 @@ public class OpenScreen : MonoBehaviour
             }
             gameObjects[j].transform.position = new Vector3(saved[i].x, saved[i].y, saved[i].z);
         }
+
+        for(; j < gameObjects.Length; ++j)
+        {
+            Destroy(gameObjects[j].gameObject);
+        }
     }
 
     public int compareObjects(GameObject a, GameObject b)
