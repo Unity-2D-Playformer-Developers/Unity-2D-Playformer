@@ -47,6 +47,10 @@ public class PlayerData
         Level = openScreen.Scene();
 
         GameObject player = GameObject.FindGameObjectsWithTag("Player")[1];
+        if(player.transform.GetChild(0).tag == "Player")
+        {
+            player = player.transform.GetChild(0).gameObject;
+        }
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] coins = GameObject.FindGameObjectsWithTag("PickupCoin");
         GameObject[] destroyable = GameObject.FindGameObjectsWithTag("DestroyableGround");

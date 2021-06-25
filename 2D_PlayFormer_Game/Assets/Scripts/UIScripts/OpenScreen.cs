@@ -14,7 +14,7 @@ public class OpenScreen : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(1);
-        SceneManager.sceneLoaded += StartNewGame;
+        // SceneManager.sceneLoaded += StartNewGame;
         level = SceneManager.GetActiveScene().buildIndex;
        
 
@@ -40,8 +40,6 @@ public class OpenScreen : MonoBehaviour
 
     public void LoadGame()
     {
-
-
         PlayerData data = SaveLoadSystem.LoadPlayer();
         playerData = data;
         level = data.Level;
@@ -49,22 +47,26 @@ public class OpenScreen : MonoBehaviour
         SceneManager.LoadScene(level);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    void StartNewGame(Scene scene, LoadSceneMode mode)
-    {
+    //void StartNewGame(Scene scene, LoadSceneMode mode)
+    //{
         // GameManager.Instance.LevelRestart();
-        GameManager.Instance.PlayerStats.LoadStats(5, 0, 0, 0);
+        //GameManager.Instance.PlayerStats.LoadStats(5, 0, 0, 0);
 
-        Transform kek = GameObject.FindGameObjectsWithTag("Player")[0].transform;
-        var shmek = GameObject.FindGameObjectsWithTag("Player")[1].transform.position;
-        kek.position = new Vector3(-21.88f - shmek.x, 1.92f - shmek.y, -13.08451f - shmek.z);
+        // Transform kek = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        // var shmek = GameObject.FindGameObjectsWithTag("Player")[1].transform.position;
+        // kek.position = new Vector3(-21.88f - shmek.x, 1.92f - shmek.y, -13.08451f - shmek.z);
         //kek.position = new Vector3(0, 0, 0);
-    }
+    //}
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlayerData data = SaveLoadSystem.LoadPlayer();
         Debug.Log("OnSceneLoaded: " + scene.name);
         Transform kek = GameObject.FindGameObjectsWithTag("Player")[1].transform;
+        if(kek.GetChild(0).tag == "Player")
+        {
+            kek = kek.GetChild(0).transform;
+        }
         kek.position = new Vector2(playerData.x, playerData.y);
         GameManager.Instance.PlayerStats.LoadStats(data.health, data.ammo, data.score, data.coinsammoun);
 
