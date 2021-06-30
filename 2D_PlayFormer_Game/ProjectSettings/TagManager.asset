@@ -16,6 +16,10 @@ TagManager:
   - Slope
   - DestroyableGround
   - Pickup
+  - Enemy
+  - Chest
+  - Door
+  - DoorsControl
   layers:
   - Default
   - TransparentFX

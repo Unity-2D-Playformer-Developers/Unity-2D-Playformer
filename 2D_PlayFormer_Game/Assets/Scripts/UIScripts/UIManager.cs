@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public Sprite emptyHeart;
     public TextMeshProUGUI Score;
     public TextMeshProUGUI Ammunition;
+    public TextMeshProUGUI Coins;
 
     private void Awake()
     {
@@ -60,15 +61,19 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-
-    #region Health Display
-    public void UpdateAmunition(int carommunition)
+    
+    #region UI
+    public void UpdateAmunition(int carrotAmmunition, int maxAmmo)
     {
-        Ammunition.text = "" + carommunition;
+        Ammunition.text = "" + carrotAmmunition + "/" + maxAmmo;
     }
     public void UpdateScore(int score)
     {
         Score.text = "Score: " + score;
+    }
+    public void UpdateCoins(int coins)
+    {
+        Coins.text =  coins.ToString();
     }
     public void UpdateHealth(int health, int NumberOfHearts)
     {
